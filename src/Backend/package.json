@@ -1,0 +1,30 @@
+{
+  "name": "taxonhub",
+  "version": "0.9.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuilherveMasco/taxonhub_2022.git"
+  },
+  "keywords": [
+    "taxonomic",
+    "hub",
+    "search",
+    "csv"
+  ],
+  "author": "Caio Cintra, Gabriela Marangoni, Guilherme Vasco, Vinicius Simões",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuilherveMasco/taxonhub_2022/issues"
+  },
+  "homepage": "https://github.com/GuilherveMasco/taxonhub_2022#readme",
+  "dependencies": {
+    "config": "^3.3.7",
+    "consign": "^0.1.6",
+    "express": "^4.18.1"
+  }
+}
