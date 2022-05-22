@@ -1,6 +1,7 @@
 const axios = require("axios");
 const papa = require("papaparse");
 const himalaya = require('himalaya');
+const converter = require('json-2-csv');
 
 module.exports = () => {
   const controller = {};
@@ -13,7 +14,8 @@ module.exports = () => {
         if (!isBlank(nomeEspecie)) {
           let pesquisa = await buscarEspecies(nomeEspecie);
           let dados = await formatarJson(pesquisa);
-          const dadosFormatados = formatarDados(dados, nomeEspecie);
+          let dadosCsv = await jsonParaCsv(dados);
+          const dadosFormatados = formatarDados(dadosCsv, nomeEspecie);
           resultados = resultados.concat(dadosFormatados);
         }
       }
@@ -23,10 +25,11 @@ module.exports = () => {
 
   const buscarEspecies = async (nomeEspecie) => {
     let url = "https://servicos.jbrj.gov.br/flora/taxon/" + nomeEspecie;
+
     try {
-      return await axios.get(url)
+      return await axios.get(url);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
@@ -35,6 +38,15 @@ module.exports = () => {
     let saida = dadosStr.replace("Conectado com: 10.10.100.29", "");
     saidaJson = himalaya.parse(saida);
     return saidaJson;
+  };
+
+  const jsonParaCsv = async (dadosJson) => {
+    converter.json2csv(dadosJson, (err, csv) => {
+      if (err) {
+          throw err;
+      }
+      return csv;
+    });
   };
 
   const formatarDados = (dados, nomeEspecie) => {
