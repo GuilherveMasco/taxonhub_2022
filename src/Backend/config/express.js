@@ -17,7 +17,6 @@ const consign = require("consign");
     );
     next();
   });
-
   
   consign({ cwd: "api" })
   // .then("database") se utilizar migrations e config de BD (sequelize, exemplo)
