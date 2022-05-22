@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+
 const multer = require("multer");
 const path = require("path");
 const port = app.get('port');
@@ -27,9 +28,5 @@ app.post("/upload", upload.single("file"), (req,res)=> {
 })
 
 app.listen(8080,() => {
-    console.log("Rodando")
-});
-
-app.listen(port, ()=> {
-    console.log(`aplicação rodando em http://localhost:${port}`);
+    console.log("aplicação rodando")
 });
