@@ -2,6 +2,7 @@ const app = require("../config/express");
 const request = require("supertest");
 const { listFDBAzurea } = require("./testsFDB");
 
+jest.setTimeout(1000)
 test("Teste de busca vazia: ", async () => {
   const response = await request(app)
     .post("/floradobrasil")
