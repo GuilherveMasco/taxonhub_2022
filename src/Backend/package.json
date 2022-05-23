@@ -17,7 +17,7 @@
     "search",
     "csv"
   ],
-  "author": "Caio Cintra, Gabriela Marangoni, Guilherme Vasco, Vinicius Simões",
+  "author": "Caio Cintra, Gabriela Marangoni, Guilherme Vasco, Vinicius SimÃµes",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/GuilherveMasco/taxonhub_2022/issues"
@@ -27,6 +27,8 @@
     "axios": "^0.27.2",
     "config": "^3.3.7",
     "consign": "^0.1.6",
+    "csv-parse": "^5.0.4",
+    "csv-parser": "^3.0.0",
     "express": "^4.18.1",
     "himalaya": "^1.1.0",
     "html-to-text": "^8.2.0",
@@ -34,7 +36,11 @@
     "jquery": "^3.6.0",
     "json-2-csv": "^3.17.1",
     "json2csv": "^5.0.7",
+    "multer": "^1.4.4",
+    "neat-csv": "^7.0.0",
     "nodemon": "^2.0.16",
+    "objects-to-csv": "^1.3.6",
+    "os": "^0.1.2",
     "papaparse": "^5.3.2",
     "supertest": "^6.2.3",
     "utf8": "^3.0.0"
