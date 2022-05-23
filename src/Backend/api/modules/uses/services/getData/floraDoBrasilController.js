@@ -1,7 +1,7 @@
 const axios = require("axios");
 const papa = require("papaparse");
-const himalaya = require('himalaya');
 const converter = require('json-2-csv');
+var fs = require('fs');
 
 module.exports = () => {
   const controller = {};
@@ -24,10 +24,11 @@ module.exports = () => {
   };
 
   const buscarEspecies = async (nomeEspecie) => {
-    let url = "https://servicos.jbrj.gov.br/flora/taxon/" + nomeEspecie;
+    let url = `https://servicos.jbrj.gov.br/flora/taxon/${nomeEspecie}`;
 
     try {
-      return await axios.get(url);
+      let corpo = await axios.get(url);
+      return corpo.data;
     } catch (error) {
       console.error(error);
     }
@@ -35,8 +36,9 @@ module.exports = () => {
 
   const formatarJson = async (dadosHtml) => {
     dadosStr = dadosHtml.toString();
-    let saida = dadosStr.replace("Conectado com: 10.10.100.29", "");
-    saidaJson = himalaya.parse(saida);
+    let rmConectado = dadosStr.replace(/\}Conectado com\: 10\.10\.100\.29\<br\/\>/g,  '}');
+    let rmBreakLine = rmConectado.split('\n').join('');
+    let saidaJson = JSON.parse("{ \"result\": [" +  rmBreakLine + "] }");
     return saidaJson;
   };
 
@@ -45,6 +47,11 @@ module.exports = () => {
       if (err) {
           throw err;
       }
+      /*var stream = fs.createWriteStream("testResult.csv");
+      stream.once('open', function(fd) {
+        stream.write(csv);
+        stream.end();
+      }); */
       return csv;
     });
   };
