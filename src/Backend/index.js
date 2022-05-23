@@ -12,7 +12,11 @@ const storage = multer.diskStorage({
         cb(null,"uploads/")
     },
     filename:function(req,file,cb){
+        if (path.extname(file.originalname) == '.csv'){
         cb(null, file.originalname + Date.now() + path.extname(file.originalname));
+        }else{
+            console.log("Formato de arquivo incorreto.")
+        }
     }
 })
 
