@@ -1,5 +1,5 @@
 # taxonhub_2022
-A information collector about species.
+A information collector about species using [Brazilian Flora](http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/PrincipalUC/PrincipalUC.do#CondicaoTaxonCP) for taxonomic search and [speciesLink](https://specieslink.net) for occurrences search.
 
 ## Running backend
 
@@ -30,7 +30,7 @@ npm test
 cd src/Backend
 npm test
 ```
-
+## Yet to be translated
 ## Requisitos Funcionais
 1. O sistema deve permitir carregar um arquivo do tipo csv de entrada com a lista de espécies a serem buscadas nos sites Flora do Brasil e The Plant List para validação das espécies.
 1.1. O sistema deve realizar validações no arquivo de entrada recebido (se o arquivo está vazio, se há linhas em branco, etc).
