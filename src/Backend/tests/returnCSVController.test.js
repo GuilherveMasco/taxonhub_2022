@@ -3,7 +3,7 @@ const request = require("supertest");
 
 test("Teste de Arquivo Inválido: ", async () => {
   const response = await request(app)
-    .post("/getCSV")
+    .get("/getCSV")
     .send({ file : "testeOutput_ocorrencias.txt" });
   expect(response.statusCode).toEqual(200);
   expect(response.text).toBe("Arquivo Inválido");
@@ -11,7 +11,7 @@ test("Teste de Arquivo Inválido: ", async () => {
 
 test("Teste de Arquivo Inexistente: ", async () => {
   const response = await request(app)
-    .post("/getCSV")
+    .get("/getCSV")
     .send({ file : "testeOutput.csv" });
   expect(response.statusCode).toEqual(200);
   expect(response.text).toBe("Erro ao ler o arquivo");
@@ -19,7 +19,7 @@ test("Teste de Arquivo Inexistente: ", async () => {
 
 test("Teste de Arquivo Válido: ", async () => {
   const response = await request(app)
-    .post("/getCSV")
+    .get("/getCSV")
     .send({ file : "testeOutput_ocorrencias.csv" });
   expect(response.statusCode).toEqual(200);
   expect(response.text).toContain("entry_name,found_name,accepted_name,base_de_dados,familia,pais,year,month,day,lat,long,Coord_SPL_Mun");

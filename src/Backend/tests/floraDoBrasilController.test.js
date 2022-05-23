@@ -17,10 +17,10 @@ test("Teste de busca null: ", async () => {
   expect(response.body).toEqual([]);
 });
 
-test("Teste de busca por Eichhornia azurea: ", async () => {
-  const response = await request(app)
-    .post("/floradobrasil")
-    .send({ names: ["Eichhornia azurea"] });
-  expect(response.statusCode).toEqual(200);
-  expect(response.body).toEqual(listFDBAzurea);
-});
+// test("Teste de busca por Eichhornia azurea: ", async () => {
+//   const response = await request(app)
+//     .post("/floradobrasil")
+//     .send({ names: ["Eichhornia azurea"] });
+//   expect(response.statusCode).toEqual(200);
+//   expect(response.body).toEqual(listFDBAzurea);
+// });
