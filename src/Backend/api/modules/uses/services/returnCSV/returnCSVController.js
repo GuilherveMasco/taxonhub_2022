@@ -6,10 +6,10 @@ const { readFile } = require('fs');
 module.exports = () => {
   const controller = {};
 
-  controller.verificaFile = async (req, res) => {
+  controller.returnCSV = async (req, res) => {
     const file = "Arquivos/" + req.body.file;
     console.log();
-    console.log("Lendo o arquivo:");
+    console.log("Enviando o arquivo:");
     console.log(file);
     console.log();
     
@@ -29,7 +29,7 @@ module.exports = () => {
         }
         respostaArquivo = "Arquivo Lido com sucesso";
         console.log(respostaArquivo);
-        res.send(respostaArquivo);
+        res.json(data.toString());
       });
     }
   };
