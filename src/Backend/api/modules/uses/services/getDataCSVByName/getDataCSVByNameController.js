@@ -32,7 +32,7 @@ module.exports = () => {
 
         if(!names.length) {
           return {
-            error: "Nenhum nome correspondente"
+            error: "Nenhum nome de especie correspondente"
           }
         }
 
