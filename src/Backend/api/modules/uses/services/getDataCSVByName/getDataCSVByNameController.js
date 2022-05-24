@@ -5,12 +5,12 @@ module.exports = () => {
   const controller = {};
 
   controller.handle = async (req, res) => {
-    const result = await execute(req.file.path);
+    const result = await execute(req.file.path, req.params.name);
 
     return res.json(result);
   }
 
-  const execute = async (file) => { 
+  const execute = async (file, searchedName) => { 
     try {
       let results = [];
 
@@ -27,7 +27,16 @@ module.exports = () => {
       
         await delay(2000, null);
 
-        return results;
+        const names = results.filter(name => name["Nome pesquisado"].toLowerCase() === searchedName.toLowerCase());
+
+
+        if(!names.length) {
+          return {
+            error: "Nenhum nome de especie correspondente"
+          }
+        }
+
+        return names;
     } catch (e) {
       return {
         error: "Arquivo não foi encontrado ou falha na conversão"

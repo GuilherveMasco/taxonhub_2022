@@ -1,5 +1,7 @@
-const express = require("express");
-const app = express();
+//const express = require("express");
+//const app = express();
+
+const app = require('./config/express');
 
 const multer = require("multer");
 const path = require("path");
