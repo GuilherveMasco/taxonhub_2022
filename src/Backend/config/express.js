@@ -19,13 +19,13 @@ const consign = require("consign");
   });
   
   consign({ cwd: "api" })
-  // .then("database") se utilizar migrations e config de BD (sequelize, exemplo)
+  // .then("database") 
     .then("modules")
-  // .then("middlewares") autenticação ou qualquer outra funcionalidade que deva ser carregada antes de uma rota por inteiro
+  // .then("middlewares") 
     .then("routes")
-  // .then("shared") se for utilizar providers ou querer automatizar instancias 
-  // .then("webhooks") se precisar ouvir eventos
-  // .then("error") para testes de erros
+  // .then("shared") 
+  // .then("webhooks") 
+  // .then("error") 
     .into(app);
 
 module.exports = app;
