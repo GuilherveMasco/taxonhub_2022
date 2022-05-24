@@ -1,7 +1,4 @@
 const axios = require("axios");
-const papa = require("papaparse");
-const converter = require('json-2-csv');
-var fs = require('fs');
 
 module.exports = () => {
   const controller = {};
@@ -14,9 +11,8 @@ module.exports = () => {
         if (!isBlank(nomeEspecie)) {
           let pesquisa = await buscarEspecies(nomeEspecie);
           let dados = await formatarJson(pesquisa);
-          let dadosCsv = await jsonParaCsv(dados);
-          const dadosFormatados = formatarDados(dadosCsv, nomeEspecie);
-          resultados = resultados.concat(dadosFormatados);
+          const dadosFormatados = formatarDados(dados, nomeEspecie);
+          resultados = resultados.concat(dadosFormatados)
         }
       }
     }
@@ -30,65 +26,36 @@ module.exports = () => {
       let corpo = await axios.get(url);
       return corpo.data;
     } catch (error) {
-      console.error(error);
+      throw new Error(`Erro no acesso aos dados da API: ${error.message}`);
     }
   };
 
   const formatarJson = async (dadosHtml) => {
     dadosStr = dadosHtml.toString();
     let rmConectado = dadosStr.replace(/\}Conectado com\: 10\.10\.100\.29\<br\/\>/g,  '}');
-    let rmBreakLine = rmConectado.split('\n').join('');
-    let saidaJson = JSON.parse("{ \"result\": [" +  rmBreakLine + "] }");
+    let rmSuccess = rmConectado.replace('"success": true,', '');
+    let rmBreakLine = rmSuccess.split('\n').join('');
+    let corpo = JSON.parse(rmBreakLine);
+    let saidaJson = corpo.result;
     return saidaJson;
   };
 
-  const jsonParaCsv = async (dadosJson) => {
-    converter.json2csv(dadosJson, (err, csv) => {
-      if (err) {
-          throw err;
-      }
-      /*var stream = fs.createWriteStream("testResult.csv");
-      stream.once('open', function(fd) {
-        stream.write(csv);
-        stream.end();
-      }); */
-      return csv;
-    });
-  };
-
   const formatarDados = (dados, nomeEspecie) => {
-    try {
-      const parse = papa.parse(dados, {
-        header: true,
-        dynamicTyping: true,
-        skipEmptyLines: true,
-      });
-      if (Object.keys(parse.errors).length !== 0) {
-        throw new Error("CSV Incorreto");
-      }
+    let saida = [];
+    if (dados === null) return null;
 
-      return CriarObjetoRetorno(parse, nomeEspecie);
-    } catch (error) {
-      throw new Error(`Erro na formatação dos dados: ${error.message}`);
-    }
-
-    function CriarObjetoRetorno(parse, nomeEspecie) {
-      let nomeAceito = "";
-      return parse.data.map((row) => {
-        let nome = row["scientificname"];
-        if (row["taxonomicstatus"] === "NOME_ACEITO") nomeAceito = nome;
-
-        return {
-          nomePesquisado: nomeEspecie,
-          nomeRetornado: nome,
-
-          aceitoSinonimo: row["taxonomicstatus"] === "NOME_ACEITO"? "NOME_ACEITO": "SINONIMO",
-          sinonimoDe: nomeAceito === nome ? "" : nomeAceito,
-          baseDados: "FDB",
-          familia: row["family"],
-        };
-      });
-    }
+    dados.forEach(function(obj) {
+      var temp = {
+        nomePesquisado: nomeEspecie,
+        nomeRetornado: obj.scientificname,
+        aceitoSinonimo: obj.taxonomicstatus,
+        sinonimoDe: obj.acceptednameusage,
+        baseDados: "FDB",
+        familia: obj.family
+      };
+      saida.push(temp);
+    });
+    return saida;
   };
   const isBlank = (str) => {
     return !str || /^\s*$/.test(str);
