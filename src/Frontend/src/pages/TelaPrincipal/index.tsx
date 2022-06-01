@@ -1,12 +1,15 @@
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Grid, GridItem, HStack, Text } from '@chakra-ui/react';
 import React from 'react';
 
 export default function TelaPrincipal() {  
     
     return (
         <> 
-            <h1 className="italic text-9xl	">oi, tudo bom? Isso aqui é só um teste para saber se tudo esta ok!</h1>  
-            
+            <h1 className="text-md	">oi, tudo bom? Isso aqui é só um teste para saber se tudo esta ok!</h1>  
+            <HStack>
+                <Text  className="text-9xl"> oi </Text>
+                <Text> oi </Text>
+            </HStack>
             <Grid
                 h='9rem'
                 templateRows='repeat(2, 1fr)'
