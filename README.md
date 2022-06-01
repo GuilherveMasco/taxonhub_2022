@@ -30,6 +30,14 @@ npm test
 cd src/Backend
 npm test
 ```
+
+## Running frontend
+```sh
+cd src/Frontend
+yarn
+yarn dev
+```
+
 ## Yet to be translated
 ## Requisitos Funcionais
 1. O sistema deve permitir carregar um arquivo do tipo csv de entrada com a lista de espécies a serem buscadas nos sites Flora do Brasil e The Plant List para validação das espécies.
@@ -45,6 +53,6 @@ npm test
 
 
 ## Stack 
-- React - Tailwind e Chakra (front-end)
+- React - Tailwind e Chakra com Next.js (front-end)
 - Node JS (Back-end)
 - API: Plant List, Flora do Brasil, GBIF e SpeciesLink.
