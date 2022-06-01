@@ -5,7 +5,10 @@ export default function TelaPrincipal() {
     
     return (
         <> 
-            <h1 className="text-md	">oi, tudo bom? Isso aqui é só um teste para saber se tudo esta ok!</h1>  
+            <h1 className="text-lg	">oi, tudo bom? Isso aqui é só um teste para saber se tudo esta ok!</h1>  
+            <h1 className="text-3xl font-bold underline">
+                Hello world!
+            </h1>
             <HStack>
                 <Text  className="text-9xl"> oi </Text>
                 <Text> oi </Text>
