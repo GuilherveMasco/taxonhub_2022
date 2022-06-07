@@ -9,38 +9,50 @@ function OccurrenceTable() {
         <>
         <TableContainer className="w-full h-full">
             <Table variant='striped' colorScheme='teal'>
-                <TableCaption>Imperial to metric conversion factors</TableCaption>
+                <TableCaption></TableCaption>
                 <Thead>
                 <Tr>
-                    <Th className="border-r !border-[#000]">To convert</Th>
-                    <Th className="border-r !border-[#000]">into</Th>
-                    <Th isNumeric className="border-l !border-[#000]">multiply by</Th>
+                    <Th className="border-r !border-[#000]">Nome pesquisado</Th>
+                    <Th className="border-r !border-[#000]">Nomes retornados</Th>
+                    <Th className="border-r !border-[#000]">Nome aceito/sinônimo</Th>
+                    <Th className="border-r !border-[#000]">Sinônimo de</Th>
+                    <Th className="border-r !border-[#000]">Base de dados</Th>
+                    <Th isNumeric className="border-l !border-[#000]">Familia respectiva da base</Th>
                 </Tr>
                 </Thead>
                 <Tbody>
                 <Tr>
-                    <Td className="border-r !border-[#000]">inches</Td>
-                    <Td className="border-r !border-[#000]">millimetres (mm)</Td>
-                    <Td isNumeric className="border-l !border-[#000]">25.4</Td>
+                    <Td className="border-r !border-[#000]"></Td>
+                    <Td className="border-r !border-[#000]"></Td>
+                    <Td className="border-r !border-[#000]"></Td>
+                    <Td className="border-r !border-[#000]"></Td>
+                    <Td className="border-r !border-[#000]"></Td>
+                    <Td isNumeric className="border-l !border-[#000]"></Td>
                 </Tr>
                 <Tr>
-                    <Td className="border-r !border-[#000]">feet</Td>
-                    <Td className="border-r !border-[#000]">centimetres (cm)</Td>
-                    <Td isNumeric className="border-l !border-[#000]">30.48</Td>
+                <Td className="border-r !border-[#000]"></Td>
+                    <Td className="border-r !border-[#000]"></Td>
+                    <Td className="border-r !border-[#000]"></Td>
+                    <Td className="border-r !border-[#000]"></Td>
+                    <Td className="border-r !border-[#000]"></Td>
+                    <Td isNumeric className="border-l !border-[#000]"></Td>
                 </Tr>
                 <Tr>
-                    <Td className="border-r !border-[#000]">yards</Td>
-                    <Td className="border-r !border-[#000]">metres (m)</Td>
-                    <Td isNumeric className="border-l !border-[#000]">0.91444</Td>
+                <Td className="border-r !border-[#000]"></Td>
+                    <Td className="border-r !border-[#000]"></Td>
+                    <Td className="border-r !border-[#000]"></Td>
+                    <Td className="border-r !border-[#000]"></Td>
+                    <Td className="border-r !border-[#000]"></Td>
+                    <Td isNumeric className="border-l !border-[#000]"></Td>
                 </Tr>
                 </Tbody>
-                <Tfoot>
+                {/* <Tfoot>
                 <Tr>
                     <Th className="border-r !border-[#000]">To convert</Th>
                     <Th className="border-r !border-[#000]">into</Th>
                     <Th isNumeric className="border-l !border-[#000]">multiply by</Th>
                 </Tr>
-                </Tfoot>
+                </Tfoot> */}
             </Table>
         </TableContainer>
         </>
