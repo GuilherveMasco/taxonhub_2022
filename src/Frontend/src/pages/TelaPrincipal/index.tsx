@@ -1,29 +1,28 @@
-import { Grid, GridItem, HStack, Text } from '@chakra-ui/react';
+import { Flex, GridItem, HStack, Stack, Text, VStack } from '@chakra-ui/react';
 import React from 'react';
+import { Header } from '../../components/Header';
 
 export default function TelaPrincipal() {  
     
     return (
         <> 
-            <h1 className="text-lg	">oi, tudo bom? Isso aqui é só um teste para saber se tudo esta ok!</h1>  
-            <h1 className="text-3xl font-bold underline">
-                Hello world!
-            </h1>
-            <HStack>
-                <Text  className="text-9xl"> oi </Text>
-                <Text> oi </Text>
-            </HStack>
-            <Grid
-                h='9rem'
-                templateRows='repeat(2, 1fr)'
-                templateColumns='repeat(5, 1fr)'
-                gap={4}
-                >
-                <GridItem rowSpan={2} colSpan={1} bg='tomato' />
-                <GridItem colSpan={2} bg='papayawhip' />
-                <GridItem colSpan={2} bg='papayawhip' />
-                <GridItem colSpan={4} bg='tomato' />
-            </Grid>      
+            <Header/>
+            
+            <Flex  justifyContent='center' className="bg-BgColor ">
+                <div>
+                    <VStack spacing='2rem' className="" >
+                        <div  className="w-[123rem]">
+                            <h1 className="text-4xl	font-bold text-left pt-9">Sobre o TaxonHub</h1>
+                        </div>
+
+                        <div className=" bg-white w-1990 h-712 rounded-3xl flex flex-row">
+                            <p className="text-2xl p-5 ">
+                                TaxonHub é um *site* que foi desenvolvido para a realização de busca taxonômicas e de ocorrências. 
+                            </p>                            
+                        </div>                        
+                    </VStack>
+                </div>
+            </Flex>     
 
         </>
     );
