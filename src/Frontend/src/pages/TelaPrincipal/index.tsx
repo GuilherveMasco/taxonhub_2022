@@ -5,7 +5,6 @@ import { Header } from '../../components/Header';
 export default function TelaPrincipal() {  
     
     return (
-        <> 
         <div className="bg-BgColor w-screen h-screen">
             <Header/>
             
@@ -26,7 +25,5 @@ export default function TelaPrincipal() {
             </Flex>     
 
         </div>
-
-        </>
     );
 }
