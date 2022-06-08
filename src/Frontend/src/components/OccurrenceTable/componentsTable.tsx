@@ -14,22 +14,40 @@ function ComponentsTable({occurrence}: IOccurrenceProps) {
         <Tbody>
             <Tr>
                 <Td className="border-r !border-[#000]">
-                    {occurrence.nameP}
+                    {occurrence.entry_name}
                 </Td>
                 <Td className="border-r !border-[#000]">
-                    {occurrence.nameR}
+                    {occurrence.found_name}
                 </Td>
                 <Td className="border-r !border-[#000]">
-                    {occurrence.nameA}
+                    {occurrence.accepted_name}
                 </Td>
                 <Td className="border-r !border-[#000]">
-                    {occurrence.synonym}
+                    {occurrence.base_de_dados}
                 </Td>
                 <Td className="border-r !border-[#000]">
-                    {occurrence.bd}
+                    {occurrence.familia}
+                </Td>
+                <Td className="border-r !border-[#000]">
+                    {occurrence.pais}
+                </Td>
+                <Td className="border-r !border-[#000]">
+                    {occurrence.year}
+                </Td>
+                <Td className="border-r !border-[#000]">
+                    {occurrence.month}
+                </Td>
+                <Td className="border-r !border-[#000]">
+                    {occurrence.day}
+                </Td>
+                <Td className="border-r !border-[#000]">
+                    {occurrence.lat}
+                </Td>
+                <Td className="border-r !border-[#000]">
+                    {occurrence.long}
                 </Td>
                 <Td isNumeric className="border-l !border-[#000]">
-                    {occurrence.family}
+                    {occurrence.Coord_SPL_Mun}
                 </Td>
             </Tr>
         </Tbody>  
