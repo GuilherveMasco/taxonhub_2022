@@ -4,7 +4,7 @@ import { Header } from '../../components/Header';
 import { ComponentsTable } from '../../components/SortingTable/componentsTable';
 import { ISorting } from '../../models/sorting';
 
-export default function ResultadoTriagem() {  
+export default function ResultadoTaxonomico() {  
     const [sorting, setSorting] = useState<ISorting[]>([] as ISorting[]);
     
     function getSorting(){
@@ -46,7 +46,7 @@ export default function ResultadoTriagem() {
                     <VStack spacing='2rem'>
                         <div  className="w-[123rem]">
                             <h1 className="text-4xl	font-bold text-left pt-9">
-                                Resultado da triagem GBIF e SpeciesLink (SPL)
+                                Resultado de busca taxonômica
                             </h1>
                         </div>
 
@@ -75,4 +75,5 @@ export default function ResultadoTriagem() {
         </div>
     );
 }
+
 
