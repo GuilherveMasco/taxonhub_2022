@@ -11,21 +11,33 @@ export default function ResultadoOcorrencias() {
         setTimeout(() => {
             setOccurrence([{
                 id: '1',
-                nameP: 'any',
-                nameR: 'any',
-                nameA: 'any',
-                synonym: 'any',
-                bd: 'any',
-                family: 'any',
+                entry_name: 'any',
+                found_name: 'any',
+                accepted_name: 'any',
+                base_de_dados: 'any',
+                familia: 'any',
+                pais: 'any',
+                year: 1998,
+                month: 5,
+                day: 13,
+                lat: -65,
+                long: 5,
+                Coord_SPL_Mun: 'any',
             },
             {
                 id: '2',
-                nameP: 'anhy',
-                nameR: 'anhy',
-                nameA: 'anhy',
-                synonym: 'anhy',
-                bd: 'anhy',
-                family: 'anhy',
+                entry_name: 'any',
+                found_name: 'any',
+                accepted_name: 'any',
+                base_de_dados: 'any',
+                familia: 'any',
+                pais: 'any',
+                year: 1998,
+                month: 5,
+                day: 13,
+                lat: -65,
+                long: -5452,
+                Coord_SPL_Mun: 'any',
             }
 
         ])
@@ -55,12 +67,18 @@ export default function ResultadoOcorrencias() {
                                     <Table variant='striped' colorScheme='teal'>
                                         <Thead>
                                             <Tr>
-                                                <Th className="border-r !border-[#000]">Nome pesquisado</Th>
-                                                <Th className="border-r !border-[#000]">Nomes retornados</Th>
-                                                <Th className="border-r !border-[#000]">Nome aceito/sinônimo</Th>
-                                                <Th className="border-r !border-[#000]">Sinônimo de</Th>
-                                                <Th className="border-r !border-[#000]">Base de dados</Th>
-                                                <Th isNumeric className="border-l !border-[#000]">Familia respectiva da base</Th>
+                                                <Th className="border-r !border-[#000]">entry_name</Th>
+                                                <Th className="border-r !border-[#000]">found_name</Th>
+                                                <Th className="border-r !border-[#000]">accepted_name</Th>
+                                                <Th className="border-r !border-[#000]">base_de_dados</Th>
+                                                <Th className="border-r !border-[#000]">familia</Th>
+                                                <Th className="border-r !border-[#000]">pais</Th>
+                                                <Th className="border-r !border-[#000]">year</Th>
+                                                <Th className="border-r !border-[#000]">month</Th>
+                                                <Th className="border-r !border-[#000]">day</Th>
+                                                <Th className="border-r !border-[#000]">lat</Th>
+                                                <Th className="border-r !border-[#000]">long</Th>
+                                                <Th isNumeric className="border-l !border-[#000]">Coord_SPL_Mun</Th>
                                             </Tr>
                                         </Thead>                
                                         {occurrence.map(occurrence => (

@@ -5,10 +5,10 @@ import { Header } from '../../components/Header';
 export default function TelaPrincipal() {  
     
     return (
-        <> 
+        <div className="bg-BgColor w-screen h-screen">
             <Header/>
             
-            <Flex  justifyContent='center' className="bg-BgColor ">
+            <Flex  justifyContent='center' >
                 <div>
                     <VStack spacing='2rem' className="" >
                         <div  className="w-[123rem]">
@@ -24,6 +24,6 @@ export default function TelaPrincipal() {
                 </div>
             </Flex>     
 
-        </>
+        </div>
     );
 }
