@@ -1,4 +1,4 @@
-import { Flex, Table, TableContainer, Th, Thead, Tr, VStack } from '@chakra-ui/react';
+import { Flex, Table, TableContainer, Tbody, Th, Thead, Tr, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { ComponentsTable } from '../../components/SortingTable/componentsTable';
@@ -26,10 +26,29 @@ export default function ResultadoTaxonomico() {
                 synonym: 'anhy',
                 bd: 'anhy',
                 family: 'anhy',
-            }
+            },
+            {
+                id: '3',
+                nameP: 'any',
+                nameR: 'any',
+                nameA: 'any',
+                synonym: 'any',
+                bd: 'any',
+                family: 'any',
+            },
+            {
+                id: '4',
+                nameP: 'any',
+                nameR: 'any',
+                nameA: 'any',
+                synonym: 'any',
+                bd: 'any',
+                family: 'any',
+            },
+
 
         ])
-        }, 3000)
+        })
     }
 
     useEffect(() => {
@@ -62,10 +81,12 @@ export default function ResultadoTaxonomico() {
                                             <Th className="border-r !border-[#000]">Base de dados (FDB/TPL) </Th>
                                             <Th isNumeric className="border-l !border-[#000]">Familia respectiva da base</Th>
                                         </Tr>
-                                    </Thead>                
-                                    {sorting.map(sorting => (
+                                    </Thead>          
+                                    <Tbody>
+                                        {sorting.map(sorting => (
                                         <ComponentsTable sorting={sorting} key={sorting.id}/> 
-                                        ))}                      
+                                            ))}                      
+                                    </Tbody>      
                                 </Table>
                             </TableContainer>                     
                         </div>                        

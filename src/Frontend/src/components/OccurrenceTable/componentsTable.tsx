@@ -11,7 +11,6 @@ interface IOccurrenceProps{
 function ComponentsTable({occurrence}: IOccurrenceProps) {  
     console.log(occurrence);
     return ( 
-        <Tbody>
             <Tr>
                 <Td className="border-r !border-[#000]">
                     {occurrence.entry_name}
@@ -50,7 +49,6 @@ function ComponentsTable({occurrence}: IOccurrenceProps) {
                     {occurrence.Coord_SPL_Mun}
                 </Td>
             </Tr>
-        </Tbody>  
     );
 }
 
