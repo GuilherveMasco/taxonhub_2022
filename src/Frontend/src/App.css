@@ -36,6 +36,12 @@ h4 {
   pointer-events: none;
 }
 
+.button {
+  height:64px;
+  width:300px;
+  border:2px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
