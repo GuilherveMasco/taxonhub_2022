@@ -1,7 +1,5 @@
 // aqui será só o select, pq é bom ele ser separado do normal
 
-// aqui será só o select, pq é bom ele ser separado do normal
-
 import React, { SelectHTMLAttributes } from 'react';
 
 interface ISelectProps extends SelectHTMLAttributes<HTMLSelectElement>{
