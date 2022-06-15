@@ -4,13 +4,17 @@
 //exemplo (altere como necessario, nao vou dar feito)
 
 import React from "react";
+<<<<<<< HEAD
 import { Button } from '@chakra-ui/react'
 //import { MdFileUpload } from "react-icons/md"
+=======
+>>>>>>> fe495b3126f988e91a723e64cf3866c101cc7fc1
 
-function BtnBuscarLista() {
+function Buttons() {
     return (
     
         <>
+<<<<<<< HEAD
             <b>Buscar Lista</b><br/>
             <Button className=""
                 height='4rem'
@@ -22,9 +26,11 @@ function BtnBuscarLista() {
                 >
                 Enviar arquivo csv
             </Button>
+=======
+>>>>>>> fe495b3126f988e91a723e64cf3866c101cc7fc1
         </>
       
     );
 }
 
-export {BtnBuscarLista}
+export {Buttons}
