@@ -1,36 +1,37 @@
 // tabela de resultado das triagens 
 
-import { Tbody, Td, Tr } from "@chakra-ui/react";
+import { Td, Tr } from "@chakra-ui/react";
 import React from "react";
-import { ISorting } from "../../models/sorting";
+import { ITaxonomic } from "../../models/taxonomic";
 
-interface ISortingProps{ 
-    sorting: ISorting;
+interface ITaxonomicProps{ 
+    taxonomic: ITaxonomic;
 }
 
-function ComponentsTable({sorting}: ISortingProps) {  
-    console.log(sorting);
+function ComponentsTable({taxonomic}: ITaxonomicProps) {  
+    console.log(taxonomic);
     return ( 
         <Tr>
             <Td className="border-r !border-[#000]">
-                {sorting.nameP}
+                {taxonomic.nameP}
             </Td>
             <Td className="border-r !border-[#000]">
-                {sorting.nameR}
+                {taxonomic.nameR}
             </Td>
             <Td className="border-r !border-[#000]">
-                {sorting.nameA}
+                {taxonomic.nameA}
             </Td>
             <Td className="border-r !border-[#000]">
-                {sorting.synonym}
+                {taxonomic.synonym}
             </Td>
             <Td className="border-r !border-[#000]">
-                {sorting.bd}
+                {taxonomic.bd}
             </Td>
             <Td isNumeric className="border-l !border-[#000]">
-                {sorting.family}
+                {taxonomic.family}
             </Td>
-        </Tr>        
+        </Tr>
+        
     );
 }
 

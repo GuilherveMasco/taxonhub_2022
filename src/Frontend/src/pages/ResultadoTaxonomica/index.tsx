@@ -1,15 +1,15 @@
 import { Flex, Table, TableContainer, Tbody, Th, Thead, Tr, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
-import { ComponentsTable } from '../../components/SortingTable/componentsTable';
-import { ISorting } from '../../models/sorting';
+import { ComponentsTable } from '../../components/TaxonomicTable/componentsTable';
+import { ITaxonomic } from '../../models/taxonomic';
 
 export default function ResultadoTaxonomico() {  
-    const [sorting, setSorting] = useState<ISorting[]>([] as ISorting[]);
+    const [taxonomic, setTaxonomic] = useState<ITaxonomic[]>([] as ITaxonomic[]);
     
-    function getSorting(){
+    function getTaxonomic(){
         setTimeout(() => {
-            setSorting([{
+            setTaxonomic([{
                 id: '1',
                 nameP: 'any',
                 nameR: 'any',
@@ -52,7 +52,7 @@ export default function ResultadoTaxonomico() {
     }
 
     useEffect(() => {
-        getSorting();
+        getTaxonomic();
     }, [])
 
     return (
@@ -83,8 +83,8 @@ export default function ResultadoTaxonomico() {
                                         </Tr>
                                     </Thead>          
                                     <Tbody>
-                                        {sorting.map(sorting => (
-                                        <ComponentsTable sorting={sorting} key={sorting.id}/> 
+                                        {taxonomic.map(taxonomic => (
+                                        <ComponentsTable taxonomic={taxonomic} key={taxonomic.id}/> 
                                             ))}                      
                                     </Tbody>      
                                 </Table>

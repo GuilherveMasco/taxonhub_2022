@@ -5,7 +5,7 @@
 
 import React from "react";
 import { Button } from '@chakra-ui/react'
-import { MdFileUpload } from "react-icons/md"
+//import { MdFileUpload } from "react-icons/md"
 
 function BtnBuscarLista() {
     return (
@@ -18,7 +18,7 @@ function BtnBuscarLista() {
                 border='0.125rem'
                 fontSize={20}
                 style={{alignSelf: 'flex-end'}}
-                rightIcon={<MdFileUpload/>}
+               // rightIcon={<MdFileUpload/>}
                 >
                 Enviar arquivo csv
             </Button>
