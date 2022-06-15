@@ -6,17 +6,14 @@ module.exports = () => {
   const controller = {};
 
   controller.saveCSV = async (req, res) => {
-    const file = "Arquivos/" + req.body.file;
     console.log();
     console.log("Salvando o CSV:");
-    console.log(file);
     console.log();
+    
+    const csvJson = req.body;
+    var csv = papa.unparse(csvJson);
 
-    // Convert back to CSV
-    var csv = papa.unparse(listFDBAzurea);
-
-
-    fs.writeFile('./Arquivos/test.csv', csv, err => {
+    fs.writeFile('./Arquivos/output_taxonomica.csv', csv, err => {
       if (err) {
         console.error(err);
       }
