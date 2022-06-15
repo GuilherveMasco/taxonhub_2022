@@ -13,9 +13,9 @@ function BtnBuscarLista() {
         <>
             <b>Buscar Lista</b><br/>
             <Button className=""
-                height='64px'
-                width='300px'
-                border='2px'
+                height='4rem'
+                width='18.75rem'
+                border='0.125rem'
                 fontSize={20}
                 style={{alignSelf: 'flex-end'}}
                 rightIcon={<MdFileUpload/>}
