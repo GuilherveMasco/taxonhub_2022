@@ -1,16 +1,47 @@
 // aqui será só o select, pq é bom ele ser separado do normal
 
-//exemplo
+import React, { SelectHTMLAttributes } from 'react';
 
-import React from "react";
-
-function Buttons() {
-    return (
-    
-        <>
-        </>
-      
-    );
+interface ISelectProps extends SelectHTMLAttributes<HTMLSelectElement>{
+    haslabel?: boolean;
+    label?: string;
+    top?: string;
+    w?: string;   
+    h?: string;    
+    fontSize?: string;
 }
 
-export {Buttons}
+function Select({
+    haslabel = false, 
+    label, 
+    top = "mt-0",
+    w = "w-full",
+    h, 
+    fontSize,
+    ...rest
+}: ISelectProps) {
+    return (        
+    <div className={`${top} ${w}`}>
+        { haslabel && (
+            <label>{label}</label>
+        )}
+        <select className= {`
+            ${w}
+            ${h}
+            ${fontSize}            
+            py-2 
+            px-3                                                  
+            bg-white 
+            border 
+            border-gray-200 
+            text-black
+            rounded-xl 
+            leading-tight 
+            `} 
+            {...rest}
+            />
+    </div>
+    
+)}
+
+export {Select};
