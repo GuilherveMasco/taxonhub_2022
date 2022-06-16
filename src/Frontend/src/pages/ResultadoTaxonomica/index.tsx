@@ -1,8 +1,10 @@
 import { Flex, Table, TableContainer, Th, Thead, Tr, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
+import { Buttons } from '../../components/Buttons/buttons';
 import { Header } from '../../components/Header';
 import { ComponentsTable } from '../../components/SortingTable/componentsTable';
 import { ISorting } from '../../models/sorting';
+import { RiSave3Fill } from "react-icons/ri";
 
 export default function ResultadoTaxonomico() {  
     const [sorting, setSorting] = useState<ISorting[]>([] as ISorting[]);
@@ -50,7 +52,7 @@ export default function ResultadoTaxonomico() {
                             </h1>
                         </div>
 
-                        <div className=" bg-white w-1990 h-712 rounded-3xl flex flex-row">
+                        <div className=" bg-white w-1990 h-647 rounded-3xl flex flex-row">
                             <TableContainer className="w-full h-full">
                                 <Table variant='striped' colorScheme='teal'>
                                     <Thead>
@@ -68,12 +70,18 @@ export default function ResultadoTaxonomico() {
                                         ))}                      
                                 </Table>
                             </TableContainer>                     
-                        </div>                        
+                        </div>  
+                        <div className="flex flex-row-reverse">
+                            <div >
+                                 <Buttons rounded='rounded-xl' text='text-xl' >
+                                    Salvar arquivo gerado <RiSave3Fill size='2.5rem'/>
+                                </Buttons>        
+
+                            </div>
+                        </div>         
                     </VStack>
                 </div>
             </Flex>               
         </div>
     );
 }
-
-
