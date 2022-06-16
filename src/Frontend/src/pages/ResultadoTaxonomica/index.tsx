@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { ComponentsTable } from '../../components/SortingTable/componentsTable';
 import { ISorting } from '../../models/sorting';
+import { Buttons } from '../../components/Buttons/buttons';
+import { RiSave3Fill } from "react-icons/ri";
 
 export default function ResultadoTaxonomico() {  
     const [sorting, setSorting] = useState<ISorting[]>([] as ISorting[]);
@@ -68,7 +70,10 @@ export default function ResultadoTaxonomico() {
                                         ))}                      
                                 </Table>
                             </TableContainer>                     
-                        </div>                        
+                        </div>   
+                        <Buttons rounded='rounded-xl' text='text-xl' >
+                            Salvar arquivo gerado <RiSave3Fill size='2.5rem'/>
+                        </Buttons>                      
                     </VStack>
                 </div>
             </Flex>               

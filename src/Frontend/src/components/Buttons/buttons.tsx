@@ -1,30 +1,34 @@
-// aqui será criado um butão padrao que irá servir para: enviar arquivo, lupa e salva arquivo gerado
-// tem como fazer e fica bem mais pratico do que criar um pra cada
+import React, { ButtonHTMLAttributes } from "react";
 
-//exemplo (altere como necessario, nao vou dar feito)
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+    bg?: string;
+    rounded?: string;
+    w?: string;
+    h?:string;
+    wMax?: string;
+    hMax?: string;
+    wMin?: string;
+    hMin?: string;
+    text?: string;
+    textColor?: string;
+    font?: string;
 
-import React from "react";
-import { Button } from '@chakra-ui/react'
-import { MdFileUpload } from "react-icons/md"
-
-function BtnBuscarLista() {
+}
+function Buttons({bg='bg-white', rounded='rounded', text='text-sm', textColor='text-black', font='font-normal',w, h, wMin, wMax, hMin, hMax,   ...rest }: IButtonProps) {
     return (
     
-        <>
-            <b>Buscar Lista</b><br/>
-            <Button className=""
-                height='4rem'
-                width='18.75rem'
-                border='0.125rem'
-                fontSize={20}
-                style={{alignSelf: 'flex-end'}}
-                rightIcon={<MdFileUpload/>}
-                >
-                Enviar arquivo csv
-            </Button>
-        </>
+        <div>
+            <button className={`${bg} ${rounded} ${textColor} ${text} ${font} ${w} ${h} ${hMax} ${hMin} ${wMax} ${hMax}  
+            p-5  
+            inline-flex 
+            items-center`}           
+        
+             {...rest}
+             />
+   
+        </div>
       
     );
 }
 
-export {BtnBuscarLista}
+export {Buttons}
