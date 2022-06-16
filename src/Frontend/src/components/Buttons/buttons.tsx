@@ -27,6 +27,7 @@ function Buttons({bg='bg-white', rounded='rounded', text='text-sm', textColor='t
              />
    
         </div>
+
       
     );
 }
