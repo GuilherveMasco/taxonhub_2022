@@ -1,4 +1,4 @@
-import { Flex, Table, TableContainer, Th, Thead, Tr, VStack } from '@chakra-ui/react';
+import { Flex, Table, TableContainer, Tbody, Th, Thead, Tr, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { ComponentsTable } from '../../components/OccurrenceTable/componentsTable';
@@ -43,7 +43,7 @@ export default function ResultadoOcorrencias() {
             }
 
         ])
-        }, 3000)
+        })
     }
 
     useEffect(() => {
@@ -83,9 +83,11 @@ export default function ResultadoOcorrencias() {
                                                 <Th isNumeric className="border-l !border-[#000]">Coord_SPL_Mun</Th>
                                             </Tr>
                                         </Thead>                
-                                        {occurrence.map(occurrence => (
-                                            <ComponentsTable occurrence={occurrence} key={occurrence.id}/> 
-                                            ))}                      
+                                        <Tbody>
+                                            {occurrence.map(occurrence => (
+                                                <ComponentsTable occurrence={occurrence} key={occurrence.id}/> 
+                                                ))}  
+                                        </Tbody>
                                     </Table>
                                 </TableContainer>                     
                             </div>     

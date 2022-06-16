@@ -1,17 +1,22 @@
-import { Flex, Table, TableContainer, Th, Thead, Tr, VStack } from '@chakra-ui/react';
+import { Flex, Table, TableContainer, Tbody, Th, Thead, Tr, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Buttons } from '../../components/Buttons/buttons';
 import { Header } from '../../components/Header';
+<<<<<<< HEAD
 import { ComponentsTable } from '../../components/SortingTable/componentsTable';
 import { ISorting } from '../../models/sorting';
 import { RiSave3Fill } from "react-icons/ri";
+=======
+import { ComponentsTable } from '../../components/TaxonomicTable/componentsTable';
+import { ITaxonomic } from '../../models/taxonomic';
+>>>>>>> 6d38db1b56c446b0a2a3f5e938ef000a96ef592c
 
 export default function ResultadoTaxonomico() {  
-    const [sorting, setSorting] = useState<ISorting[]>([] as ISorting[]);
+    const [taxonomic, setTaxonomic] = useState<ITaxonomic[]>([] as ITaxonomic[]);
     
-    function getSorting(){
+    function getTaxonomic(){
         setTimeout(() => {
-            setSorting([{
+            setTaxonomic([{
                 id: '1',
                 nameP: 'any',
                 nameR: 'any',
@@ -28,14 +33,33 @@ export default function ResultadoTaxonomico() {
                 synonym: 'anhy',
                 bd: 'anhy',
                 family: 'anhy',
-            }
+            },
+            {
+                id: '3',
+                nameP: 'any',
+                nameR: 'any',
+                nameA: 'any',
+                synonym: 'any',
+                bd: 'any',
+                family: 'any',
+            },
+            {
+                id: '4',
+                nameP: 'any',
+                nameR: 'any',
+                nameA: 'any',
+                synonym: 'any',
+                bd: 'any',
+                family: 'any',
+            },
+
 
         ])
-        }, 3000)
+        })
     }
 
     useEffect(() => {
-        getSorting();
+        getTaxonomic();
     }, [])
 
     return (
@@ -64,10 +88,12 @@ export default function ResultadoTaxonomico() {
                                             <Th className="border-r !border-[#000]">Base de dados (FDB/TPL) </Th>
                                             <Th isNumeric className="border-l !border-[#000]">Familia respectiva da base</Th>
                                         </Tr>
-                                    </Thead>                
-                                    {sorting.map(sorting => (
-                                        <ComponentsTable sorting={sorting} key={sorting.id}/> 
-                                        ))}                      
+                                    </Thead>          
+                                    <Tbody>
+                                        {taxonomic.map(taxonomic => (
+                                        <ComponentsTable taxonomic={taxonomic} key={taxonomic.id}/> 
+                                            ))}                      
+                                    </Tbody>      
                                 </Table>
                             </TableContainer>                     
                         </div>  
