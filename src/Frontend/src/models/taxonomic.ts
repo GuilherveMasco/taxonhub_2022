@@ -1,4 +1,4 @@
-export interface ISorting {
+export interface ITaxonomic {
     id: string;
     nameP: string;
     nameR: string;
