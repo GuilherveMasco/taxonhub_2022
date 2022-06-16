@@ -1,17 +1,29 @@
 // aqui sera feito o header colocando os componentes necessario já criados
 
-import { Stack } from "@chakra-ui/react";
+import { HStack, Stack } from "@chakra-ui/react";
 import React from "react";
+import { Buttons } from "../Buttons/buttons";
+import { TbFileUpload } from "react-icons/tb";
 
 
 function Header() {
-    return (
-    
-        <>
+    return (    
         <Stack className="bg-HeaderColor w-full h-182">
-            
-        </Stack>
-        </>
+           <HStack className='m-14' spacing='5rem'>
+                <Buttons 
+                    text='text-xl' 
+                    rounded='rounded-xl' 
+                    w='w-72' 
+                    h='h-16'
+                    wMin='min-w-72' 
+                    hMin='min-h-16'
+                    wMax='max-w-72'
+                    hMax='max-h-16'
+                    >
+                    arquivo.csv <TbFileUpload size='2.5rem' />
+                </Buttons>
+           </HStack>
+        </Stack>     
       
     );
 }
