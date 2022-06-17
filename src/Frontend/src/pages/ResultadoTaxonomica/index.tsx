@@ -1,11 +1,10 @@
 import { Flex, Table, TableContainer, Tbody, Th, Thead, Tr, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { Buttons } from '../../components/Buttons/buttons';
 import { Header } from '../../components/Header';
 import { RiSave3Fill } from "react-icons/ri";
 import { ComponentsTable } from '../../components/TaxonomicTable/componentsTable';
 import { ITaxonomic } from '../../models/taxonomic';
-
+import { Buttons } from '../../components/Buttons/buttons';
 
 export default function ResultadoTaxonomico() {  
     const [taxonomic, setTaxonomic] = useState<ITaxonomic[]>([] as ITaxonomic[]);
@@ -92,12 +91,14 @@ export default function ResultadoTaxonomico() {
                                     </Tbody>      
                                 </Table>
                             </TableContainer>                     
+
                         </div>  
                         <div  className=' absolute bottom-0 right-14 p-4' >                                
                             <Buttons rounded='rounded-xl' text='text-xl' >
                                 Salvar arquivo gerado <RiSave3Fill size='2.5rem'/>
                             </Buttons>                                                  
-                        </div>         
+                        </div> 
+                          
                     </VStack>
                 </div>
             </Flex>               
