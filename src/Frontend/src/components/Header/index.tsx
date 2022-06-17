@@ -10,16 +10,6 @@ import { MdSearch } from "react-icons/md";
 export function Header() {
     const [type, setType] = useState();
 
-      function validateName(value) {
-    let error
-    if (!value) {
-      error = "Name is required"
-    } else if (value.toLowerCase() !== "naruto") {
-      error = "Jeez! You're not a fan 😱"
-    }
-    return error
-  }
-
     function onChangeType(e: React.ChangeEvent){        
         const target = e.target as HTMLSelectElement
         console.log(target?.value);
@@ -37,23 +27,24 @@ export function Header() {
                     hMin='min-h-16'
                     wMax='max-w-72'
                     hMax='max-h-16'
+                    disabled
                     >
                     Enviar arquivo
                     <TbFileUpload size='3rem' color='transparent'/>
                     <Box display="inherit" color='transparent' overflow='hidden' opacity={1}>
-                    <input type="file" accept=".csv" id='fileInput'/>
+                    <input type="file" accept=".csv" id='fileInput' required/>
                     </Box>
             </Buttons>
 
-                <Select 
+                <Select
                 w='w-72' 
                 h='h-16' 
                 fontSize='text-xl'                
                 value={type}  
-                
+                id='select'
+                required
                 onChange={(e: React.ChangeEvent) => onChangeType(e)}
                 >
-                    <option value='undefined' >Tipo de busca</option>
                     <option value='taxonomic'>Taxonômica</option>
                     <option value='occurrence'>Ocorrência</option>
                 </Select>
@@ -62,6 +53,7 @@ export function Header() {
                     rounded='rounded-xl' 
                     w='w-20' 
                     h='h-16'
+                    id='submit'
                     type="submit"
                     >
                      <MdSearch size='3.5rem' />
