@@ -1,5 +1,6 @@
 import React, { ButtonHTMLAttributes } from "react";
 
+
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     bg?: string;
     rounded?: string;
@@ -25,7 +26,6 @@ function Buttons({bg='bg-white', rounded='rounded', text='text-sm', textColor='t
         
              {...rest}
              />
-   
         </div>
       
     );
