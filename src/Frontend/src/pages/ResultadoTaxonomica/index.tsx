@@ -93,13 +93,10 @@ export default function ResultadoTaxonomico() {
                                 </Table>
                             </TableContainer>                     
                         </div>  
-                        <div className="flex flex-row-reverse">
-                            <div >
-                                 <Buttons rounded='rounded-xl' text='text-xl' >
-                                    Salvar arquivo gerado <RiSave3Fill size='2.5rem'/>
-                                </Buttons>        
-
-                            </div>
+                        <div  className=' absolute bottom-0 right-14 p-4' >                                
+                            <Buttons rounded='rounded-xl' text='text-xl' >
+                                Salvar arquivo gerado <RiSave3Fill size='2.5rem'/>
+                            </Buttons>                                                  
                         </div>         
                     </VStack>
                 </div>

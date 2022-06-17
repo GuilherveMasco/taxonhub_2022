@@ -1,4 +1,4 @@
-import { Flex, Table, TableContainer, Tbody, Th, Thead, Tr, VStack } from '@chakra-ui/react';
+import { Box, Flex, HStack, Spacer, Table, TableContainer, Tbody, Th, Thead, Tr, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { ComponentsTable } from '../../components/OccurrenceTable/componentsTable';
@@ -91,10 +91,11 @@ export default function ResultadoOcorrencias() {
                                     </Table>
                                 </TableContainer>                     
                             </div>     
-
-                            <Buttons rounded='rounded-xl' text='text-xl' >
-                                Salvar arquivo gerado <RiSave3Fill size='2.5rem'/>
-                            </Buttons>                     
+                            <div  className=' absolute bottom-0 right-14 p-4' >                                
+                                <Buttons rounded='rounded-xl' text='text-xl' >
+                                    Salvar arquivo gerado <RiSave3Fill size='2.5rem'/>
+                                </Buttons>                                                  
+                            </div>                                                    
                         </VStack>
                     </div>
                 </Flex>               
