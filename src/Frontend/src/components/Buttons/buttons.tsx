@@ -12,11 +12,9 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     text?: string;
     textColor?: string;
     font?: string;
-
 }
 function Buttons({bg='bg-white', rounded='rounded', text='text-sm', textColor='text-black', font='font-normal',w, h, wMin, wMax, hMin, hMax,   ...rest }: IButtonProps) {
-    return (
-    
+    return (    
         <div>
             <button className={`${bg} ${rounded} ${textColor} ${text} ${font} ${w} ${h} ${hMax} ${hMin} ${wMax} ${hMax}  
             p-5  
@@ -26,8 +24,7 @@ function Buttons({bg='bg-white', rounded='rounded', text='text-sm', textColor='t
              {...rest}
              />
    
-        </div>
-      
+        </div>      
     );
 }
 
