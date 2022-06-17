@@ -35,12 +35,12 @@ export function Header() {
                 </Buttons>
 
                 <Select 
-                w='w-72' 
-                h='h-16' 
-                fontSize='text-xl'                
-                value={type}  
-                
-                onChange={(e: React.ChangeEvent) => onChangeType(e)}
+                    w='w-72' 
+                    h='h-16' 
+                    fontSize='text-xl'                
+                    value={type}  
+                    
+                    onChange={(e: React.ChangeEvent) => onChangeType(e)}
                 >
                     <option value='undefined' >Tipo de busca</option>
                     <option value='taxonomic'>Taxonômica</option>
