@@ -1,8 +1,10 @@
 import { Flex, Table, TableContainer, Tbody, Th, Thead, Tr, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
+import { RiSave3Fill } from "react-icons/ri";
 import { ComponentsTable } from '../../components/TaxonomicTable/componentsTable';
 import { ITaxonomic } from '../../models/taxonomic';
+
 
 export default function ResultadoTaxonomico() {  
     const [taxonomic, setTaxonomic] = useState<ITaxonomic[]>([] as ITaxonomic[]);
@@ -96,5 +98,3 @@ export default function ResultadoTaxonomico() {
         </div>
     );
 }
-
-

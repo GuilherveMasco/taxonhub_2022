@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { ComponentsTable } from '../../components/OccurrenceTable/componentsTable';
 import { IOccurrence } from '../../models/occurrence';
+import { Buttons } from '../../components/Buttons/buttons';
+import { RiSave3Fill } from "react-icons/ri";
 
 export default function ResultadoOcorrencias() {  
     const [occurrence, setOccurrence] = useState<IOccurrence[]>([] as IOccurrence[]);
@@ -88,7 +90,11 @@ export default function ResultadoOcorrencias() {
                                         </Tbody>
                                     </Table>
                                 </TableContainer>                     
-                            </div>                        
+                            </div>     
+
+                            <Buttons rounded='rounded-xl' text='text-xl' >
+                                Salvar arquivo gerado <RiSave3Fill size='2.5rem'/>
+                            </Buttons>                     
                         </VStack>
                     </div>
                 </Flex>               
