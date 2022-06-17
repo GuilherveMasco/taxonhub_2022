@@ -15,10 +15,7 @@ export function Header() {
     return (
         <Stack className="bg-HeaderColor w-full h-182">
             <HStack  className='m-14' spacing='5rem'>
-                <div className='
-                rounded-xl' >
                     <Image src="https://i.ibb.co/6y78TjR/logo.png" alt="Logo" width={277} height={86} />
-                </div>
                 <Select 
                 w='w-72' 
                 h='h-16' 
