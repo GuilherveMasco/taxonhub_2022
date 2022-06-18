@@ -13,16 +13,19 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     textColor?: string;
     font?: string;
 }
-function Buttons({bg='bg-white', rounded='rounded', text='text-sm', textColor='text-black', font='font-normal',w, h, wMin, wMax, hMin, hMax,   ...rest }: IButtonProps) {
+function Buttons({bg='bg-white', rounded='rounded-xl', text='text-xl', textColor='text-black', font='font-normal',w, h, wMin, wMax, hMin, hMax,   ...rest }: IButtonProps) {
     return (    
         <div>
-            <button className={`${bg} ${rounded} ${textColor} ${text} ${font} ${w} ${h} ${hMax} ${hMin} ${wMax} ${hMax}  
-            p-5  
-            inline-flex 
-            items-center`}           
-        
-             {...rest}
-             />  
+            <button className={`
+                ${bg} ${rounded} ${textColor} ${text} ${font} ${w} ${h} ${hMax} ${hMin} ${wMax} ${hMax}  
+                p-5  
+                inline-flex 
+                items-center
+                hover:opacity-80
+                transition-all duration-200
+            `}           
+                {...rest}
+            />  
         </div>      
     );
 }
