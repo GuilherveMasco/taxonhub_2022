@@ -3,7 +3,7 @@ const request = require("supertest");
 
 test("Teste de Salvamento grande com Sucesso: ", async () => {
   const response = await request(app)
-    .get("/saveCSV")
+    .get("/saveCSVTaxonomico")
     .send([  {
       "nomePesquisado" : "Eichhornia azurea",
       "nomeRetornado" : "Eichhornia azurea (Sw.) Kunth",
@@ -43,7 +43,7 @@ test("Teste de Salvamento grande com Sucesso: ", async () => {
 
 test("Teste de Salvamento único com Sucesso: ", async () => {
   const response = await request(app)
-    .get("/saveCSV")
+    .get("/saveCSVTaxonomico")
     .send({
       "nomePesquisado" : "Eichhornia azurea",
       "nomeRetornado" : "Eichhornia azurea (Sw.) Kunth",
