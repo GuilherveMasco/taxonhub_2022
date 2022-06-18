@@ -16,9 +16,12 @@ module.exports = () => {
     fs.writeFile('./Arquivos/output_taxonomica.csv', csv, err => {
       if (err) {
         console.error(err);
-        res.send("ERRO Ao salvar o arquivo!");
+        res.send("ERRO ao salvar o arquivo!");
+        console.log("ERRO ao salvar o arquivo!");
+      } else {
+        res.send("Arquivo salvo com sucesso!");
+        console.log("Arquivo salvo com sucesso!");
       }
-      res.send("Arquivo salvo com sucesso!");
     });
     
   };
@@ -58,11 +61,12 @@ module.exports = () => {
             fs.writeFile(caminho, csv, err => {
               if (err) {
                 console.error(err);
-                res.send("ERRO Ao salvar o arquivo!");
-                console.log("ERRO Ao salvar o arquivo!");
+                res.send("ERRO ao salvar o arquivo!");
+                console.log("ERRO ao salvar o arquivo!");
+              } else{
+                res.send("Arquivo salvo com sucesso!");
+                console.log("Arquivo salvo com sucesso!");
               }
-              res.send("Arquivo salvo com sucesso!");
-              console.log("Arquivo salvo com sucesso!");
             });
           });
         });
