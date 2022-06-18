@@ -34,20 +34,28 @@ export function Header() {
                     </Box>
             </Buttons>
 
-
-
-                <Select 
-                w='w-72' 
-                h='h-16' 
-                fontSize='text-xl'                
-                value={type}  
+            <Select
+            w='w-72' 
+            h='h-16' 
+            fontSize='text-xl'                
+            value={type}  
+            id='select'
+            required
+            onChange={(e: React.ChangeEvent) => onChangeType(e)}
+            >
+                <option value='taxonomic'>Taxonômica</option>
+                <option value='occurrence'>Ocorrência</option>
+            </Select>
                 
-                onChange={(e: React.ChangeEvent) => onChangeType(e)}
-                >
-                    <option value='undefined' >Tipo de busca</option>
-                    <option value='taxonomic'>Taxonômica</option>
-                    <option value='occurrence'>Ocorrência</option>
-                </Select>
+                <Buttons 
+                    rounded='rounded-xl' 
+                    w='w-20' 
+                    h='h-16'
+                    id='submit'
+                    type="submit"
+                    >
+                     <MdSearch size='3.5rem' />
+                </Buttons>                
             </HStack>
         </Stack>
     );
