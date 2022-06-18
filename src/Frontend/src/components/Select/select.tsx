@@ -17,7 +17,7 @@ function Select({
     top = "mt-0",
     w = "w-full",
     h, 
-    fontSize,
+    fontSize ="text-xl",
     ...rest
 }: ISelectProps) {
     return (        
