@@ -38,18 +38,18 @@ export function Header() {
                     </Box>
             </Buttons>
 
-                <Select
-                w='w-72' 
-                h='h-16' 
-                fontSize='text-xl'                
-                value={type}  
-                id='select'
-                required
-                onChange={(e: React.ChangeEvent) => onChangeType(e)}
-                >
-                    <option value='taxonomic'>Taxonômica</option>
-                    <option value='occurrence'>Ocorrência</option>
-                </Select>
+            <Select
+            w='w-72' 
+            h='h-16' 
+            fontSize='text-xl'                
+            value={type}  
+            id='select'
+            required
+            onChange={(e: React.ChangeEvent) => onChangeType(e)}
+            >
+                <option value='taxonomic'>Taxonômica</option>
+                <option value='occurrence'>Ocorrência</option>
+            </Select>
                 
                 <Buttons 
                     rounded='rounded-xl' 
