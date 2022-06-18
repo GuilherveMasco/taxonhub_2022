@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Spacer, Table, TableContainer, Tbody, Th, Thead, Tr, useToast, VStack } from '@chakra-ui/react';
+import { Box, Flex, HStack, Spacer, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr, useToast, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { ComponentsTable } from '../../components/OccurrenceTable/componentsTable';
@@ -92,31 +92,37 @@ export default function ResultadoOcorrencias() {
                             </div>
 
                             <div className=" bg-white w-1990 h-647 rounded-3xl flex flex-row">
-                                <TableContainer className="w-full h-full">
-                                    <Table variant='striped' colorScheme='teal'>
-                                        <Thead>
-                                            <Tr>
-                                                <Th className="border-r !border-[#000]">entry_name</Th>
-                                                <Th className="border-r !border-[#000]">found_name</Th>
-                                                <Th className="border-r !border-[#000]">accepted_name</Th>
-                                                <Th className="border-r !border-[#000]">base_de_dados</Th>
-                                                <Th className="border-r !border-[#000]">familia</Th>
-                                                <Th className="border-r !border-[#000]">pais</Th>
-                                                <Th className="border-r !border-[#000]">year</Th>
-                                                <Th className="border-r !border-[#000]">month</Th>
-                                                <Th className="border-r !border-[#000]">day</Th>
-                                                <Th className="border-r !border-[#000]">lat</Th>
-                                                <Th className="border-r !border-[#000]">long</Th>
-                                                <Th isNumeric className="border-l !border-[#000]">Coord_SPL_Mun</Th>
-                                            </Tr>
-                                        </Thead>                
-                                        <Tbody>
-                                            {occurrence.map(occurrence => (
-                                                <ComponentsTable occurrence={occurrence} key={occurrence.id}/> 
-                                                ))}  
-                                        </Tbody>
-                                    </Table>
-                                </TableContainer>                     
+                            { isLoadingTable ? (
+                                <div className="flex w-full h-full items-center justify-center">
+                                    <Spinner size="xl" />
+                                </div>
+                            ) : (
+                                    <TableContainer className="w-full h-full">
+                                        <Table variant='striped' colorScheme='teal'>
+                                            <Thead>
+                                                <Tr>
+                                                    <Th className="border-r !border-[#000]">entry_name</Th>
+                                                    <Th className="border-r !border-[#000]">found_name</Th>
+                                                    <Th className="border-r !border-[#000]">accepted_name</Th>
+                                                    <Th className="border-r !border-[#000]">base_de_dados</Th>
+                                                    <Th className="border-r !border-[#000]">familia</Th>
+                                                    <Th className="border-r !border-[#000]">pais</Th>
+                                                    <Th className="border-r !border-[#000]">year</Th>
+                                                    <Th className="border-r !border-[#000]">month</Th>
+                                                    <Th className="border-r !border-[#000]">day</Th>
+                                                    <Th className="border-r !border-[#000]">lat</Th>
+                                                    <Th className="border-r !border-[#000]">long</Th>
+                                                    <Th isNumeric className="border-l !border-[#000]">Coord_SPL_Mun</Th>
+                                                </Tr>
+                                            </Thead>                
+                                            <Tbody>
+                                                {occurrence.map(occurrence => (
+                                                    <ComponentsTable occurrence={occurrence} key={occurrence.id}/> 
+                                                    ))}  
+                                            </Tbody>
+                                        </Table>
+                                    </TableContainer>        
+                                ) }              
                             </div>     
                             <div  className=' absolute bottom-0 right-14 p-7 px-4' >                                
                                 <Buttons onClick={saveCSV}>
