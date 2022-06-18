@@ -1,12 +1,11 @@
 // aqui sera feito o header colocando os componentes necessario já criados
 
-import { HStack, Stack, Image, Box } from "@chakra-ui/react";
+import { HStack, Stack, Box } from "@chakra-ui/react";
 import { Buttons } from "../Buttons/buttons";
 import { TbFileUpload } from "react-icons/tb";
 import React, { useState } from "react";
 import { Select } from "../Select/select";
 import { MdSearch } from "react-icons/md";
-
 
 export function Header() {
     const [type, setType] = useState();
@@ -19,7 +18,6 @@ export function Header() {
         <Stack className="bg-HeaderColor w-full h-182">
             <form>
             <HStack className='m-14' spacing='5rem'>
-                    <Image src="https://i.ibb.co/6y78TjR/logo.png" alt="Logo" width={277} height={86} />
             <Buttons
                     text='text-xl' 
                     rounded='rounded-xl' 
