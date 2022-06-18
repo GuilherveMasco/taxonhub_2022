@@ -1,14 +1,40 @@
-import { Box, Flex, HStack, Spacer, Table, TableContainer, Tbody, Th, Thead, Tr, VStack } from '@chakra-ui/react';
+import { Box, Flex, HStack, Spacer, Table, TableContainer, Tbody, Th, Thead, Tr, useToast, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { ComponentsTable } from '../../components/OccurrenceTable/componentsTable';
 import { IOccurrence } from '../../models/occurrence';
 import { Buttons } from '../../components/Buttons/buttons';
 import { RiSave3Fill } from "react-icons/ri";
+import api from '../../services/api_';
+
+interface IResponseLinkBackend {
+    url: string;
+}
 
 export default function ResultadoOcorrencias() {  
     const [occurrence, setOccurrence] = useState<IOccurrence[]>([] as IOccurrence[]);
+    const [isLoadingTable, setIsLoadingTable] = useState<boolean>(true);
+    const addToast = useToast();
     
+    async function saveCSV() {
+        try {
+            //const response = await api.get<IResponseLinkBackend>('/saveCSVOcorrencias');
+            // let url = response.data?.url;
+            // window.open(url);
+            window.open('https://storage.googleapis.com/teste-250412.appspot.com/modelo_novo_output_1a_lista.csv');
+        } catch (error) {
+            addToast({
+                title: 'Aconteceu um erro',
+                description: 'Não foi possível salvar o arquivo',
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+                position: 'top-right',
+                variant: 'left-accent'
+            })
+        }
+    }
+
     function getOccurrence(){
         setTimeout(() => {
             setOccurrence([{
@@ -43,7 +69,8 @@ export default function ResultadoOcorrencias() {
             }
 
         ])
-        })
+        setIsLoadingTable(false);
+        }, 2000)
     }
 
     useEffect(() => {
@@ -91,8 +118,8 @@ export default function ResultadoOcorrencias() {
                                     </Table>
                                 </TableContainer>                     
                             </div>     
-                            <div  className=' absolute bottom-0 right-14 p-4' >                                
-                                <Buttons rounded='rounded-xl' text='text-xl' >
+                            <div  className=' absolute bottom-0 right-14 p-7 px-4' >                                
+                                <Buttons onClick={saveCSV}>
                                     Salvar arquivo gerado <RiSave3Fill size='2.5rem'/>
                                 </Buttons>                                                  
                             </div>                                                    
