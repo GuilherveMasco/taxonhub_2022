@@ -6,4 +6,10 @@ module.exports = app => {
 
   app.route('/saveCSVOcorrencias')
     .post(controller.saveCSVOcorrencias);
+    
+  app.route('/downloadCSVOcorrencias')
+    .get(controller.downloadCSVOcorrencias);
+    
+  app.route('/downloadCSVTaxonomica')
+    .get(controller.downloadCSVTaxonomica);
 }

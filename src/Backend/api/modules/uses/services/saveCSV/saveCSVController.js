@@ -31,7 +31,7 @@ module.exports = () => {
     
     const csvJson = req.body;
     var csv = papa.unparse(csvJson);
-
+    
     fs.writeFile('./Arquivos/output_ocorrencias.csv', csv, err => {
       if (err) {
         console.error(err);
@@ -40,6 +40,22 @@ module.exports = () => {
         res.send("Arquivo salvo com sucesso!");
       }
     });
+  };
+  
+  controller.downloadCSVOcorrencias = async (req, res) => {
+    console.log();
+    console.log("Baixando o CSV de Ocorrências...");
+    console.log();
+
+    res.download('./Arquivos/output_ocorrencias.csv');
+  };
+
+  controller.downloadCSVTaxonomica = async (req, res) => {
+    console.log();
+    console.log("Baixando o CSV Taxonomica...");
+    console.log();
+
+    res.download('./Arquivos/output_taxonomica.csv');
   };
   return controller;
 };
