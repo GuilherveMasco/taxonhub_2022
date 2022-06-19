@@ -1,4 +1,5 @@
 const axios = require("axios");
+const https = require("https");
 
 module.exports = () => {
   const controller = {};
@@ -21,9 +22,12 @@ module.exports = () => {
 
   const buscarEspecies = async (nomeEspecie) => {
     let url = `https://servicos.jbrj.gov.br/flora/taxon/${nomeEspecie}`;
-
     try {
-      let corpo = await axios.get(url);
+      let corpo = await axios.get(url,
+      {
+        httpsAgent: new https.Agent({ rejectUnauthorized: false })
+      }
+      );
       return corpo.data;
     } catch (error) {
       throw new Error(`Erro no acesso aos dados da API: ${error.message}`);
