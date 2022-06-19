@@ -3,7 +3,7 @@ const request = require("supertest");
 
 test("Teste de Salvamento grande com Sucesso: ", async () => {
   const response = await request(app)
-    .get("/saveCSVTaxonomico")
+    .post("/saveCSVTaxonomico")
     .send([  {
       "nomePesquisado" : "Eichhornia azurea",
       "nomeRetornado" : "Eichhornia azurea (Sw.) Kunth",
@@ -43,15 +43,17 @@ test("Teste de Salvamento grande com Sucesso: ", async () => {
 
 test("Teste de Salvamento único com Sucesso: ", async () => {
   const response = await request(app)
-    .get("/saveCSVTaxonomico")
-    .send({
+  .post("/saveCSVTaxonomico")
+  .send([
+    {
       "nomePesquisado" : "Eichhornia azurea",
       "nomeRetornado" : "Eichhornia azurea (Sw.) Kunth",
       "aceitoSinonimo" : "NOME_ACEITO",
       "sinonimoDe" : null,
       "baseDados" : "FDB",
       "familia" : "Pontederiaceae"
-    });
+    }
+  ]);
   expect(response.statusCode).toEqual(200);
   expect(response.text).toBe("Arquivo salvo com sucesso!");
 });

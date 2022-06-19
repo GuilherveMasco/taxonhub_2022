@@ -1,4 +1,5 @@
 const axios = require("axios");
+const http = require('node:http');
 
 module.exports = () => {
   const controller = {};
@@ -16,8 +17,40 @@ module.exports = () => {
         }
       }
     }
-    res.send(resultados);
-  };
+ 
+    var respSaveFile = "";
+    
+    const saveCSVTaxonomico = http.request(
+      {
+        hostname: 'localhost',
+        port: 8080,
+        path: '/saveCSVOcorrencias',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(JSON.stringify(resultados))
+        }}, (resp) => {
+          
+          resp.setEncoding('utf8');
+          
+          resp.on('data', (chunk) => {
+            respSaveFile += chunk;
+          });
+          
+          resp.on('end', () => {
+            console.error(respSaveFile);
+          });
+        });
+        
+        saveCSVTaxonomico.on('error', (e) => {
+          console.error(`problem with request: ${e.message}`);
+        });
+
+        saveCSVTaxonomico.write(JSON.stringify(resultados));
+        saveCSVTaxonomico.end();
+        
+        res.send(resultados);
+      };
 
   const buscarEspecies = async (nomeEspecie) => {
     let url = `https://servicos.jbrj.gov.br/flora/taxon/${nomeEspecie}`;

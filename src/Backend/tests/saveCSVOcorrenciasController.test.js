@@ -3,22 +3,59 @@ const request = require("supertest");
 
 test("Teste de Salvamento grande com Sucesso: ", async () => {
   const response = await request(app)
-    .get("/saveCSVOcorrencias")
-    .send({
-      "caminho" : "./Arquivos/output_ocorrencias.csv"
-  });
+    .post("/saveCSVOcorrencias")
+    .send([  {
+      "nomePesquisado" : "Eichhornia azurea",
+      "nomeRetornado" : "Eichhornia azurea (Sw.) Kunth",
+      "aceitoSinonimo" : "NOME_ACEITO",
+      "sinonimoDe" : null,
+      "baseDados" : "FDB",
+      "familia" : "Pontederiaceae"
+    },
+    {
+      "nomePesquisado" : "Eichhornia azurea",
+      "nomeRetornado" : "Eichhornia azurea var. rhizantha Seub.",
+      "aceitoSinonimo" : "SINONIMO",
+      "sinonimoDe" : "Eichhornia azurea (Sw.) Kunth",
+      "baseDados" : "FDB",
+      "familia" : "Pontederiaceae"
+    },
+    {
+      "nomePesquisado" : "Eichhornia azurea",
+      "nomeRetornado" : "Eichhornia azurea var. genuina Seub.",
+      "aceitoSinonimo" : "SINONIMO",
+      "sinonimoDe" : "Eichhornia azurea (Sw.) Kunth",
+      "baseDados" : "FDB",
+      "familia" : "Pontederiaceae"
+    },
+    {
+      "nomePesquisado" : "Eichhornia azurea",
+      "nomeRetornado" : "Eichhornia azurea var. rigida Seub.",
+      "aceitoSinonimo" : "SINONIMO",
+      "sinonimoDe" : "Eichhornia azurea (Sw.) Kunth",
+      "baseDados" : "FDB",
+      "familia" : "Pontederiaceae"
+    }
+    ]);
   expect(response.statusCode).toEqual(200);
   expect(response.text).toBe("Arquivo salvo com sucesso!");
-}, 10000);
+});
 
 
 test("Teste de Salvamento grande com Insucesso: ", async () => {
   const response = await request(app)
-    .get("/saveCSVOcorrencias")
-    .send({
-      "caminho" : "./Arquivos/asd/output_ocorrencias.csv"
-  });
+    .post("/saveCSVOcorrencias")
+    .send([
+      {
+        "nomePesquisado" : "Eichhornia azurea",
+        "nomeRetornado" : "Eichhornia azurea (Sw.) Kunth",
+        "aceitoSinonimo" : "NOME_ACEITO",
+        "sinonimoDe" : null,
+        "baseDados" : "FDB",
+        "familia" : "Pontederiaceae"
+      }
+    ]);
   expect(response.statusCode).toEqual(200);
-  expect(response.text).toBe("ERRO ao salvar o arquivo!");
-}, 10000);
+  expect(response.text).toBe("Arquivo salvo com sucesso!");
+});
 
