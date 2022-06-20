@@ -1,4 +1,6 @@
 const axios = require("axios");
+const papa = require("papaparse");
+const http = require('node:http');
 
 module.exports = () => {
   const controller = {};
@@ -16,12 +18,44 @@ module.exports = () => {
         }
       }
     }
-    res.send(resultados);
-  };
+    
+    var respSaveFile = "";
+    
+    const saveCSVOcorrencias = http.request(
+      {
+        hostname: 'localhost',
+        port: 8080,
+        path: '/saveCSVOcorrencias',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(JSON.stringify(resultados))
+        }}, (resp) => {
+          
+          resp.setEncoding('utf8');
+          
+          resp.on('data', (chunk) => {
+            respSaveFile += chunk;
+          });
+          
+          resp.on('end', () => {
+            console.error(respSaveFile);
+          });
+        });
+        
+        saveCSVOcorrencias.on('error', (e) => {
+          console.error(`problem with request: ${e.message}`);
+        });
 
-  const buscarEspecies = async (nomeCientifico) => {
-    let url = `https://api.splink.org.br/records/format/json/ScientificName/${nomeCientifico}`;
-
+        saveCSVOcorrencias.write(JSON.stringify(resultados));
+        saveCSVOcorrencias.end();
+        
+        res.send(resultados);
+      };
+      
+      const buscarEspecies = async (nomeCientifico) => {
+        let url = `https://api.splink.org.br/records/format/json/ScientificName/${nomeCientifico}`;
+        
     try {
       let corpo = await axios.get(url);
       return corpo.data;

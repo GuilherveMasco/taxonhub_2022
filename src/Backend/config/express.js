@@ -4,6 +4,7 @@ const config = require("config");
 const consign = require("consign");
 
   const app = express();
+  app.use(bodyParser.json({ limit: '500000000mb' }));
 
   app.set("port", process.env.PORT || config.get("server.port"));
 

@@ -18,10 +18,7 @@ export default function ResultadoOcorrencias() {
     
     async function saveCSV() {
         try {
-            //const response = await api.get<IResponseLinkBackend>('/saveCSVOcorrencias');
-            // let url = response.data?.url;
-            // window.open(url);
-            window.open('https://storage.googleapis.com/teste-250412.appspot.com/modelo_novo_output_1a_lista.csv');
+            window.open('http://localhost:8080/downloadCSVOcorrencias');
         } catch (error) {
             addToast({
                 title: 'Aconteceu um erro',

@@ -2,8 +2,14 @@ module.exports = app => {
   const controller = app.modules.uses.services.saveCSV.saveCSVController;
 
   app.route('/saveCSVTaxonomico')
-    .get(controller.saveCSVTaxonomica);
+    .post(controller.saveCSVTaxonomica);
 
   app.route('/saveCSVOcorrencias')
-    .get(controller.saveCSVOcorrencias);
+    .post(controller.saveCSVOcorrencias);
+    
+  app.route('/downloadCSVOcorrencias')
+    .get(controller.downloadCSVOcorrencias);
+    
+  app.route('/downloadCSVTaxonomica')
+    .get(controller.downloadCSVTaxonomica);
 }
