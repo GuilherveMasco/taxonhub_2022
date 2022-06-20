@@ -1,4 +1,4 @@
-import { Flex, GridItem, HStack, Stack, Text, VStack } from '@chakra-ui/react';
+import { Flex, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { Header } from '../../components/Header';
 
@@ -23,7 +23,6 @@ export default function TelaPrincipal() {
                     </VStack>
                 </div>
             </Flex>     
-
         </div>
     );
 }
