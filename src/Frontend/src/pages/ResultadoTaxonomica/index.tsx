@@ -5,11 +5,6 @@ import { RiSave3Fill } from "react-icons/ri";
 import { ComponentsTable } from '../../components/TaxonomicTable/componentsTable';
 import { ITaxonomic } from '../../models/taxonomic';
 import { Buttons } from '../../components/Buttons/buttons';
-import api from '../../services/api_';
-
-interface IResponseLinkBackend {
-    url: string;
-}
 
 export default function ResultadoTaxonomico() {  
     const [taxonomic, setTaxonomic] = useState<ITaxonomic[]>([] as ITaxonomic[]);
@@ -18,7 +13,8 @@ export default function ResultadoTaxonomico() {
 
     async function saveCSV() {
         try {
-            window.open('http://localhost:8080/downloadCSVTaxonomica');
+            window.open('https://storage.googleapis.com/teste-250412.appspot.com/modelo_novo_output_1a_lista.csv'); //cenário de teste
+           // window.open('http://localhost:8080/downloadCSVTaxonomica'); //integração com o back
         } catch (error) {
             addToast({
                 title: 'Aconteceu um erro',
@@ -78,8 +74,7 @@ export default function ResultadoTaxonomico() {
         getTaxonomic();
     }, [])
 
-    return (
-       
+    return (       
         <div className="bg-BgColor w-screen h-screen">
             <Header/>
             

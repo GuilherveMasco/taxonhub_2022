@@ -1,6 +1,6 @@
 // tabela de resultado das ocorrencias
 
-import { Tbody, Td, Tr } from "@chakra-ui/react";
+import { Td, Tr } from "@chakra-ui/react";
 import React from "react";
 import { IOccurrence } from '../../models/occurrence';
 

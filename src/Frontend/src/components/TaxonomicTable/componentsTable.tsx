@@ -30,8 +30,7 @@ function ComponentsTable({taxonomic}: ITaxonomicProps) {
             <Td isNumeric className="border-l !border-[#000]">
                 {taxonomic.family}
             </Td>
-        </Tr>
-        
+        </Tr>        
     );
 }
 
