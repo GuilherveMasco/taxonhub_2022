@@ -54,6 +54,7 @@ export function Header() {
                             onChange={(e: React.ChangeEvent) => onChangeType(e)}
                         >
                             <option value='taxonomic'>Taxonômica</option>
+                            
                             <option value='occurrence'>Ocorrência</option>
                         </Select>
                         
