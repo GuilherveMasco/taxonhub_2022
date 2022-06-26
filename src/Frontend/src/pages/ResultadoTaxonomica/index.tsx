@@ -13,8 +13,8 @@ export default function ResultadoTaxonomico() {
 
     async function saveCSV() {
         try {
-            window.open('https://storage.googleapis.com/teste-250412.appspot.com/modelo_novo_output_1a_lista.csv'); //cenário de teste
-           // window.open('http://localhost:8080/downloadCSVTaxonomica'); //integração com o back
+            //window.open('https://storage.googleapis.com/teste-250412.appspot.com/modelo_novo_output_1a_lista.csv'); //cenário de teste
+            window.open('http://localhost:8080/downloadCSVTaxonomica'); //integração com o back
         } catch (error) {
             addToast({
                 title: 'Aconteceu um erro',
@@ -32,39 +32,39 @@ export default function ResultadoTaxonomico() {
         setTimeout(() => {
             setTaxonomic([{
                 id: '1',
-                nameP: 'any',
-                nameR: 'any',
-                nameA: 'any',
-                synonym: 'any',
-                bd: 'any',
-                family: 'any',
+                nameP: 'Eichhornia azurea',
+                nameR: 'Eichhornia azurea (Sw.) Kunth',
+                nameA: 'NOME_ACEITO',
+                synonym: '',
+                bd: 'FDB',
+                family: 'Pontederiaceae',
             },
             {
                 id: '2',
-                nameP: 'anhy',
-                nameR: 'anhy',
-                nameA: 'anhy',
-                synonym: 'anhy',
-                bd: 'anhy',
-                family: 'anhy',
+                nameP: 'Eichhornia azurea',
+                nameR: 'Eichhornia azurea var. rhizantha Seub.',
+                nameA: 'SINONIMO',
+                synonym: 'Eichhornia azurea (Sw.) Kunth',
+                bd: 'FDB',
+                family: 'Pontederiaceae',
             },
             {
                 id: '3',
-                nameP: 'any',
-                nameR: 'any',
-                nameA: 'any',
-                synonym: 'any',
-                bd: 'any',
-                family: 'any',
+                nameP: 'Eichhornia azurea',
+                nameR: 'Eichhornia azurea var. genuina Seub.',
+                nameA: 'SINONIMO',
+                synonym: 'Eichhornia azurea (Sw.) Kunth',
+                bd: 'FDB',
+                family: 'Pontederiaceae',
             },
             {
                 id: '4',
-                nameP: 'any',
-                nameR: 'any',
-                nameA: 'any',
-                synonym: 'any',
-                bd: 'any',
-                family: 'any',
+                nameP: 'Eichhornia azurea',
+                nameR: 'Eichhornia azurea var. rigida Seub.',
+                nameA: 'SINONIMO',
+                synonym: 'Eichhornia azurea (Sw.) Kunth',
+                bd: 'FDB',
+                family: 'Pontederiaceae',
             }])
             setIsLoadingTable(false);
         }, 2000)

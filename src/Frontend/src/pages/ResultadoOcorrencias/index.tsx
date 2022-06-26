@@ -13,8 +13,8 @@ export default function ResultadoOcorrencias() {
     
     async function saveCSV() {
         try {
-            window.open('https://storage.googleapis.com/teste-250412.appspot.com/modelo_novo_output_1a_lista.csv'); //cenário de teste
-           // window.open('http://localhost:8080/downloadCSVOcorrencias'); //integração com o back
+            //window.open('https://storage.googleapis.com/teste-250412.appspot.com/modelo_novo_output_1a_lista.csv'); //cenário de teste
+            window.open('http://localhost:8080/downloadCSVOcorrencias'); //integração com o back
         } catch (error) {
             addToast({
                 title: 'Aconteceu um erro',
@@ -32,33 +32,33 @@ export default function ResultadoOcorrencias() {
         setTimeout(() => {
             setOccurrence([{
                 id: '1',
-                entry_name: 'any',
-                found_name: 'any',
-                accepted_name: 'any',
-                base_de_dados: 'any',
-                familia: 'any',
+                entry_name: 'Abildgaardia ovata (Burm.f. Kral)',
+                found_name: 'Abildgaardia ovata (Burm. Kral)',
+                accepted_name: 'Fimbristylis ovata (Burm.f. J.Kern)',
+                base_de_dados: 'SPL',
+                familia: 'Cyperaceae',
                 pais: 'any',
-                year: 1998,
-                month: 5,
-                day: 13,
-                lat: -65,
-                long: 5,
-                Coord_SPL_Mun: 'any',
+                year: 1988,
+                month: 6,
+                day: 7,
+                lat: 0.72,
+                long: -78.25,
+                Coord_SPL_Mun: '',
             },
             {
                 id: '2',
-                entry_name: 'any',
-                found_name: 'any',
-                accepted_name: 'any',
-                base_de_dados: 'any',
-                familia: 'any',
+                entry_name: 'Abildgaardia ovata (Burm.f. Kral)',
+                found_name: 'Abildgaardia ovata (Burm. Kral)',
+                accepted_name: 'Fimbristylis ovata (Burm.f. J.Kern)',
+                base_de_dados: 'SPL',
+                familia: 'Cyperaceae',
                 pais: 'any',
-                year: 1998,
-                month: 5,
-                day: 13,
-                lat: -65,
-                long: -5452,
-                Coord_SPL_Mun: 'any',
+                year: 1988,
+                month: 9,
+                day: 19,
+                lat: 9.07,
+                long: -69.73,
+                Coord_SPL_Mun: '',
             }
 
         ])
