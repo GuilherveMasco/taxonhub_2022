@@ -1,8 +1,9 @@
+import type { NextPage } from 'next'
 import { Flex, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { Header } from '../../components/Header';
 
-export default function TelaPrincipal() {  
+const Home: NextPage = () => {  
     
     return (
         <div className="bg-BgColor w-screen h-screen">
@@ -26,3 +27,4 @@ export default function TelaPrincipal() {
         </div>
     );
 }
+export default Home

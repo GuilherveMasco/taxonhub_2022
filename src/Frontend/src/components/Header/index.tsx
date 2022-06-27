@@ -4,28 +4,42 @@ import { HStack, Stack, Box, Image, useDisclosure, Button, Spinner, Center } fro
 import { Buttons } from "../Buttons/buttons";
 import { TbFileUpload } from "react-icons/tb";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import { Select } from "../Select/select";
 import { MdSearch } from "react-icons/md";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from '@chakra-ui/react'
 
 export function Header() {
     const [type, setType] = useState();
+    const [taxonomic, setTaxonomic] = useState(false);
+    const [occurrence, setOccurrence] = useState(false);
+    const router = useRouter();
     
     const OverlayOne = () => (
         <ModalOverlay
-            bg='blackAlpha.300'
-            backdropFilter='blur(10px)'
+        bg='blackAlpha.300'
+        backdropFilter='blur(10px)'
         />
     )
         
-    const { isOpen, onOpen, onClose } = useDisclosure()
     const [overlay, setOverlay] = React.useState(<OverlayOne />)
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     function onChangeType(e: React.ChangeEvent){        
         const target = e.target as HTMLSelectElement
         console.log(target?.value);
     }
 
+    function goTaxonomic() {
+        setTaxonomic(true);
+        setOccurrence(false);
+        //router.push('/ResultadoTaxonomica')
+    }
+    function goOccurrence() {
+        setTaxonomic(false);
+        setOccurrence(true);
+        //router.push('/ResultadoOcorrencias')
+    }
     return (
         <Stack className="bg-HeaderColor w-full h-40">
             <form 
@@ -34,7 +48,7 @@ export function Header() {
                     onOpen()
                 }}
             >
-                <HStack className='m-10 px-8' spacing='56rem' >
+                <HStack className='m-10 px-8' spacing='79rem' >
                         <Image src="https://i.ibb.co/6y78TjR/logo.png" alt="Logo" width={277} height={86} />
                     <HStack spacing='5rem'>
                         <Buttons w='w-72'h='h-16'>
@@ -45,18 +59,7 @@ export function Header() {
                             </Box>
                         </Buttons>
                     
-                        <Select
-                            w='w-72' 
-                            h='h-16'                                    
-                            value={type}  
-                            id='select'
-                            required
-                            onChange={(e: React.ChangeEvent) => onChangeType(e)}
-                        >
-                            <option value='taxonomic'>Taxonômica</option>
-                            
-                            <option value='occurrence'>Ocorrência</option>
-                        </Select>
+                       
                         
                         <Buttons                     
                             w='w-20' 
