@@ -1,8 +1,8 @@
 const app = require("../config/express");
 const request = require("supertest");
-const { listFDBAzurea } = require("./testsFDB");
+const { listFDBAzurea, listFDBAzureaReboulia } = require("./testsFDB");
 
-test("Teste de busca vazia: ", async () => {
+test("Teste de busca com vazio: ", async () => {
   const response = await request(app)
     .post("/floradobrasil")
     .send({ names: [""] });
@@ -10,14 +10,15 @@ test("Teste de busca vazia: ", async () => {
   expect(response.body).toEqual([]);
 });
 
-test("Teste de busca null: ", async () => {
+test("Teste de busca de nome não binomial: ", async () => {
   const response = await request(app)
-    .post("/floradobrasil");
+    .post("/floradobrasil")
+    .send({ names: ["Eichhornia azurea azurea"] });
   expect(response.statusCode).toEqual(200);
   expect(response.body).toEqual([]);
 });
 
-test("Teste de busca por Eichhornia azurea: ", async () => {
+test("Teste de busca por nome binomial que é espécie: ", async () => {
   const response = await request(app)
     .post("/floradobrasil")
     .send({ names: ["Eichhornia azurea"] });
@@ -25,26 +26,34 @@ test("Teste de busca por Eichhornia azurea: ", async () => {
   expect(response.body).toEqual(listFDBAzurea);
 });
 
-test("Teste de busca AAA: ", async () => {
+test("Teste de busca por nomes binomiais que são espécies: ", async () => {
   const response = await request(app)
     .post("/floradobrasil")
-    .send({ names: ["AAA"] });
+    .send({ names: ["Eichhornia azurea", "Reboulia hemisphaerica"] });
   expect(response.statusCode).toEqual(200);
-  expect(response.body).toEqual([null]);
+  expect(response.body).toEqual(listFDBAzureaReboulia);
 });
 
-test("Teste de busca Eichhornia azurea azurea: ", async () => {
+test("Teste de busca por nome binomial que não é espécie: ", async () => {
   const response = await request(app)
     .post("/floradobrasil")
-    .send({ names: ["Eichhornia azurea azurea"] });
+    .send({ names: ["Ney mar"] });
   expect(response.statusCode).toEqual(200);
-  expect(response.body).toEqual([null]);
+  expect(response.body).toEqual([]);
 });
 
-test("Teste de busca com espaço antes do nome: ", async () => {
+test("Teste de busca por nomes binomiais que não são espécies: ", async () => {
   const response = await request(app)
     .post("/floradobrasil")
-    .send({ names: [" Eichhornia azurea"] });
+    .send({ names: ["Ney mar", "Ju nior"] });
   expect(response.statusCode).toEqual(200);
-  expect(response.body).toEqual([null]);
+  expect(response.body).toEqual([]);
+});
+
+test("Teste de busca por nomes binomiais que são e não são espécies intercalados: ", async () => {
+  const response = await request(app)
+    .post("/floradobrasil")
+    .send({ names: ["Eichhornia azurea", "Ney mar"] });
+  expect(response.statusCode).toEqual(200);
+  expect(response.body).toEqual(listFDBAzurea);
 });
