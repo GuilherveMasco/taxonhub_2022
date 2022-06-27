@@ -192,13 +192,14 @@ export default function ResultadoTaxonomico() {
                             
                         </div>
 
-                        <div className="bg-white w-1990 h-647 rounded-3xl flex flex-row">
+                        <div className="bg-white w-1990 h-647 flex flex-row "
+                        >
                             { isLoadingTable ? (
                                 <div className="flex w-full h-full items-center justify-center">
                                     <Spinner size="xl" />
                                 </div>
                             ) : (
-                                <TableContainer className="w-full h-full">
+                                <TableContainer className="w-full h-full " overflowY="auto">
                                     <Table variant='striped' colorScheme='teal'>
                                         <Thead>
                                             <Tr>
