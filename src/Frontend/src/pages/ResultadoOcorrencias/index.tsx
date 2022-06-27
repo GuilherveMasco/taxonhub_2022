@@ -1,12 +1,11 @@
-import { Box, Flex, HStack, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr, useToast, VStack } from '@chakra-ui/react';
+import { Box, Flex, HStack, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr, useToast, VStack, Center, Button, useDisclosure  } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { ComponentsTable } from '../../components/OccurrenceTable/componentsTable';
 import { IOccurrence } from '../../models/occurrence';
 import { Buttons } from '../../components/Buttons/buttons';
 import { RiSave3Fill } from "react-icons/ri";
-
-
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from '@chakra-ui/react'
 import { TbFileUpload } from "react-icons/tb";
 import { MdSearch } from "react-icons/md";
 
@@ -74,6 +73,16 @@ export default function ResultadoOcorrencias() {
         getOccurrence();
     }, [])
 
+    const OverlayOne = () => (
+        <ModalOverlay
+        bg='blackAlpha.300'
+        backdropFilter='blur(10px)'
+        />
+    )
+        
+    const [overlay, setOverlay] = React.useState(<OverlayOne />)
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
     return (         
         <div className="bg-BgColor w-screen h-screen">
             <Header/>
@@ -86,24 +95,54 @@ export default function ResultadoOcorrencias() {
                                 <h1 className="text-4xl	font-bold text-left pt-9">
                                     Resultado de ocorrências
                                 </h1>
-                                <HStack spacing='5rem' >
-                                    <Buttons w='w-72'h='h-16'>
-                                        Enviar arquivo
-                                        <TbFileUpload size='3rem' color='transparent'/> {/* É gambiarra mesmo, não sei um jeito melhor */}
-                                        <Box display="inherit" color='transparent' overflow='hidden' opacity={1}>
-                                            <input type="file" accept=".csv" id='fileInput' required/>
-                                        </Box>
-                                    </Buttons>      
-                                    
-                                    <Buttons                     
-                                        w='w-20' 
-                                        h='h-16'
-                                        id='submit'
-                                        type="submit"
-                                    >
-                                        <MdSearch size='3.5rem' />
-                                    </Buttons>
-                                </HStack>
+                                <form 
+                                    onSubmit={() => {
+                                        setOverlay(<OverlayOne />)
+                                        onOpen()
+                                    }}
+                                >
+                                    <HStack spacing='5rem' >
+                                        <Buttons w='w-72'h='h-16'>
+                                            Enviar arquivo
+                                            <TbFileUpload size='3rem' color='transparent'/> {/* É gambiarra mesmo, não sei um jeito melhor */}
+                                            <Box display="inherit" color='transparent' overflow='hidden' opacity={1}>
+                                                <input type="file" accept=".csv" id='fileInput' required/>
+                                            </Box>
+                                        </Buttons>      
+                                        
+                                        <Buttons                     
+                                            w='w-20' 
+                                            h='h-16'
+                                            id='submit'
+                                            type="submit"
+                                        >
+                                            <MdSearch size='3.5rem' />
+                                        </Buttons>
+                                    </HStack>
+                                    <Modal isCentered isOpen={isOpen} onClose={onClose}>
+                                    {overlay}
+                                        <ModalContent>
+                                            <ModalHeader>
+                                                Carregando ...
+                                            </ModalHeader>
+                                            <ModalCloseButton/>
+                                            <ModalBody>
+                                                <Center>
+                                                    <Spinner
+                                                        thickness='8px'
+                                                        speed='0.65s'
+                                                        emptyColor='gray.200'
+                                                        color='green.500'
+                                                        size='xl'
+                                                        />
+                                                </Center>
+                                            </ModalBody>
+                                            <ModalFooter>
+                                                <Button onClick={onClose}>Cancelar</Button>
+                                            </ModalFooter>
+                                        </ModalContent>
+                                    </Modal>
+                                </form>
                             </HStack>
                         </div>
 
