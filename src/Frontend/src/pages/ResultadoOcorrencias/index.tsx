@@ -82,26 +82,28 @@ export default function ResultadoOcorrencias() {
                 <div>
                     <VStack spacing='2rem'>
                         <div  className="w-[123rem]">
-                            <HStack spacing='5rem' spacing-between>
+                            <HStack justifyContent='space-between'>
                                 <h1 className="text-4xl	font-bold text-left pt-9">
                                     Resultado de ocorrências
                                 </h1>
-                                <Buttons w='w-72'h='h-16'>
-                                    Enviar arquivo
-                                    <TbFileUpload size='3rem' color='transparent'/> {/* É gambiarra mesmo, não sei um jeito melhor */}
-                                    <Box display="inherit" color='transparent' overflow='hidden' opacity={1}>
-                                        <input type="file" accept=".csv" id='fileInput' required/>
-                                    </Box>
-                                </Buttons>      
-                                
-                                <Buttons                     
-                                    w='w-20' 
-                                    h='h-16'
-                                    id='submit'
-                                    type="submit"
-                                >
-                                    <MdSearch size='3.5rem' />
-                                </Buttons>
+                                <HStack spacing='5rem' >
+                                    <Buttons w='w-72'h='h-16'>
+                                        Enviar arquivo
+                                        <TbFileUpload size='3rem' color='transparent'/> {/* É gambiarra mesmo, não sei um jeito melhor */}
+                                        <Box display="inherit" color='transparent' overflow='hidden' opacity={1}>
+                                            <input type="file" accept=".csv" id='fileInput' required/>
+                                        </Box>
+                                    </Buttons>      
+                                    
+                                    <Buttons                     
+                                        w='w-20' 
+                                        h='h-16'
+                                        id='submit'
+                                        type="submit"
+                                    >
+                                        <MdSearch size='3.5rem' />
+                                    </Buttons>
+                                </HStack>
                             </HStack>
                         </div>
 
