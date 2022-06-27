@@ -1,15 +1,15 @@
 export interface IOccurrence {
     id: string;
-    entry_name: string;
-    found_name: string;
-    accepted_name: string;
-    base_de_dados: string;
+    nomePesquisado: string;
+    nomeEncontrado: string;
+    nomeAceito: string;
+    baseDados: string;
     familia: string;
     pais: string;
-    year: number;
-    month: number;
-    day: number;
+    ano: number;
+    mes: number;
+    dia: number;
     lat: number;
     long: number;
-    Coord_SPL_Mun: string;
+    coordMun: string;
 }

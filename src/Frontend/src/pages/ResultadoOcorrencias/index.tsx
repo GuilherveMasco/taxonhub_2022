@@ -33,7 +33,7 @@ export default function ResultadoOcorrencias() {
 
     function getOccurrence(){
         setTimeout(() => {
-            setOccurrence([{
+            /* setOccurrence([{
                 id: '1',
                 entry_name: 'Abildgaardia ovata (Burm.f. Kral)',
                 found_name: 'Abildgaardia ovata (Burm. Kral)',
@@ -230,7 +230,7 @@ export default function ResultadoOcorrencias() {
             },
 
 
-        ])
+        ]) */
         setIsLoadingTable(false);
         }, 2000)
     }
