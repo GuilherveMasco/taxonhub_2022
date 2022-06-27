@@ -25,7 +25,7 @@ module.exports = () => {
       {
         hostname: 'localhost',
         port: 8080,
-        path: '/saveCSVOcorrencias',
+        path: '/saveCSVTaxonomico',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
