@@ -268,10 +268,10 @@ export default function ResultadoOcorrencias() {
                                     }}
                                 >
                                     <HStack spacing='5rem' >
-                                        <Buttons w='w-72'h='h-16'>
+                                        <Buttons w='w-98'h='h-16' type='button'>
                                             Enviar arquivo
-                                            <TbFileUpload size='3rem' color='transparent'/> {/* É gambiarra mesmo, não sei um jeito melhor */}
-                                            <Box display="inherit" color='transparent' overflow='hidden' opacity={1}>
+                                            <TbFileUpload size='3rem' color='transparent'/>
+                                            <Box display="inherit" opacity={1}>
                                                 <input type="file" accept=".csv" id='fileInput' required/>
                                             </Box>
                                         </Buttons>      
