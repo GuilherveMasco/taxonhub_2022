@@ -8,6 +8,7 @@ import { Buttons } from '../../components/Buttons/buttons';
 import { TbFileUpload } from "react-icons/tb";
 import { MdSearch } from "react-icons/md";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from '@chakra-ui/react'
+import { usePapaParse  } from "react-papaparse";
 
 
 export default function ResultadoTaxonomico() {  
@@ -87,6 +88,7 @@ export default function ResultadoTaxonomico() {
         
     const [overlay, setOverlay] = React.useState(<OverlayOne />)
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { readString } = usePapaParse();
 
     return (       
         <div className="bg-BgColor w-screen h-screen">
@@ -101,11 +103,49 @@ export default function ResultadoTaxonomico() {
                                     Resultado de busca taxonômica
                                 </h1>
                                 <form 
-                                    onSubmit={() => {
-                                        setOverlay(<OverlayOne />)
-                                        onOpen()
-                                    }}
-                                >
+                                    onSubmit={(event) => {
+                                        event.preventDefault();
+                                        setOverlay(<OverlayOne />);
+                                        onOpen();
+                                        
+                                        var arquivo = document.getElementById("fileInput") as HTMLInputElement;
+                                        var reader = new FileReader();
+                                        var nomesPesquisa = {names:[]};
+                                        
+                                        reader.onload = function(){
+                                            
+                                            readString(reader.result.toString(), {
+                                                worker: true,
+                                                complete: async (results) => {
+                                                    results.data.shift();
+                                                    results.data.forEach(element => {
+                                                        nomesPesquisa.names.push(element[0]);
+                                                    }
+                                                    )
+                                                    
+                                                    const requestOptions = {
+                                                        method: 'POST',
+                                                        headers: { 'Content-Type': 'application/json' },
+                                                        body: JSON.stringify(nomesPesquisa)
+                                                    };
+                                                    const response = await fetch('http://localhost:8080/floradobrasil', requestOptions);
+                                                    const nomesretornados = await response.json();
+                                                    
+                                                    console.log(nomesretornados);
+
+                                                    // Formatar dados
+                                                    
+
+                                                    // Chamar a função com os dados formatados
+                                                    setTaxonomic(nomesretornados);
+                                                    onClose();
+                                                },
+                                            });
+                                        };
+                                        
+                                        reader.readAsText(arquivo.files[0]);
+                                        }}
+                                        >
                                     <HStack spacing='5rem' >
                                         <Buttons w='w-72'h='h-16'>
                                             Enviar arquivo
