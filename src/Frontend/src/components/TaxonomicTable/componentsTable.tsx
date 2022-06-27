@@ -13,24 +13,24 @@ function ComponentsTable({taxonomic}: ITaxonomicProps) {
     return ( 
         <Tr>
             <Td className="border-r !border-[#000]">
-                {taxonomic.nameP}
+                {taxonomic.nomePesquisado}
             </Td>
             <Td className="border-r !border-[#000]">
-                {taxonomic.nameR}
+                {taxonomic.nomeRetornado}
             </Td>
             <Td className="border-r !border-[#000]">
-                {taxonomic.nameA}
+                {taxonomic.aceitoSinonimo}
             </Td>
             <Td className="border-r !border-[#000]">
-                {taxonomic.synonym}
+                {taxonomic.sinonimoDe}
             </Td>
             <Td className="border-r !border-[#000]">
-                {taxonomic.bd}
+                {taxonomic.baseDados}
             </Td>
             <Td isNumeric className="border-l !border-[#000]">
-                {taxonomic.family}
+                {taxonomic.familia}
             </Td>
-        </Tr>        
+        </Tr>    
     );
 }
 
