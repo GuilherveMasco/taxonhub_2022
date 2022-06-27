@@ -35,7 +35,7 @@ export default function ResultadoTaxonomico() {
     
     function getTaxonomic(){
         setTimeout(() => {
-            setTaxonomic([{
+            /* setTaxonomic([{
                 id: '1',
                 nameP: 'Eichhornia azurea',
                 nameR: 'Eichhornia azurea (Sw.) Kunth',
@@ -70,7 +70,7 @@ export default function ResultadoTaxonomico() {
                 synonym: 'Eichhornia azurea (Sw.) Kunth',
                 bd: 'FDB',
                 family: 'Pontederiaceae',
-            }])
+            }]) */
             setIsLoadingTable(false);
         }, 2000)
     }
@@ -192,13 +192,14 @@ export default function ResultadoTaxonomico() {
                             
                         </div>
 
-                        <div className="bg-white w-1990 h-647 rounded-3xl flex flex-row">
+                        <div className="bg-white w-1990 h-647 flex flex-row "
+                        >
                             { isLoadingTable ? (
                                 <div className="flex w-full h-full items-center justify-center">
                                     <Spinner size="xl" />
                                 </div>
                             ) : (
-                                <TableContainer className="w-full h-full">
+                                <TableContainer className="w-full h-full " overflowY="auto">
                                     <Table variant='striped' colorScheme='teal'>
                                         <Thead>
                                             <Tr>
