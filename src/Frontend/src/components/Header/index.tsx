@@ -4,10 +4,15 @@ import { HStack, Stack, Box, Image, useDisclosure, Button, Spinner, Center } fro
 import { Buttons } from "../Buttons/buttons";
 import { TbFileUpload } from "react-icons/tb";
 import React from "react";
+import router from "next/router";
 import { MdSearch } from "react-icons/md";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from '@chakra-ui/react'
 
-export function Header() {       
+export function Header() {      
+    function goHome(){
+        router.push('/')
+    }
+
     const OverlayOne = () => (
         <ModalOverlay
         bg='blackAlpha.300'
@@ -32,7 +37,7 @@ export function Header() {
                 }}
             >
                 <HStack className='m-10 px-8' spacing='79rem' >
-                        <Image src="https://i.ibb.co/6y78TjR/logo.png" alt="Logo" width={277} height={86} />
+                        <Image src="https://i.ibb.co/6y78TjR/logo.png" alt="Logo" width={277} height={86} onClick={goHome}/>
                     <HStack spacing='5rem'>
                         <Buttons w='w-72'h='h-16'>
                             Enviar arquivo
