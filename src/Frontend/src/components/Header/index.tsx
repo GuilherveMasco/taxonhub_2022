@@ -36,11 +36,11 @@ export function Header() {
                     onOpen()
                 }}
             >
+            </form>
                 <HStack className='m-10 px-8' spacing='79rem' >
                         <Image src="https://i.ibb.co/6y78TjR/logo.png" alt="Logo" width={277} height={86} onClick={goHome}/>
                     
                 </HStack>
-            </form>
 
             <Modal isCentered isOpen={isOpen} onClose={onClose}>
             {overlay}
