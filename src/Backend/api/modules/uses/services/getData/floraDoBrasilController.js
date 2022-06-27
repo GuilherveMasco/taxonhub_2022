@@ -14,7 +14,9 @@ module.exports = () => {
           let pesquisa = await buscarEspecies(nomeEspecie);
           let dados = await formatarJson(pesquisa);
           const dadosFormatados = formatarDados(dados, nomeEspecie);
-          resultados = resultados.concat(dadosFormatados)
+          if (dadosFormatados != null) {
+            resultados = resultados.concat(dadosFormatados)
+          }
         }
       }
     }

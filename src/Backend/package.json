@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
