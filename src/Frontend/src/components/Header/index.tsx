@@ -3,18 +3,11 @@
 import { HStack, Stack, Box, Image, useDisclosure, Button, Spinner, Center } from "@chakra-ui/react";
 import { Buttons } from "../Buttons/buttons";
 import { TbFileUpload } from "react-icons/tb";
-import React, { useState } from "react";
-import { useRouter } from "next/router";
-import { Select } from "../Select/select";
+import React from "react";
 import { MdSearch } from "react-icons/md";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from '@chakra-ui/react'
 
-export function Header() {
-    const [type, setType] = useState();
-    const [taxonomic, setTaxonomic] = useState(false);
-    const [occurrence, setOccurrence] = useState(false);
-    const router = useRouter();
-    
+export function Header() {       
     const OverlayOne = () => (
         <ModalOverlay
         bg='blackAlpha.300'
@@ -29,17 +22,7 @@ export function Header() {
         const target = e.target as HTMLSelectElement
         console.log(target?.value);
     }
-
-    function goTaxonomic() {
-        setTaxonomic(true);
-        setOccurrence(false);
-        //router.push('/ResultadoTaxonomica')
-    }
-    function goOccurrence() {
-        setTaxonomic(false);
-        setOccurrence(true);
-        //router.push('/ResultadoOcorrencias')
-    }
+    
     return (
         <Stack className="bg-HeaderColor w-full h-40">
             <form 
@@ -57,9 +40,7 @@ export function Header() {
                             <Box display="inherit" color='transparent' overflow='hidden' opacity={1}>
                                 <input type="file" accept=".csv" id='fileInput' required/>
                             </Box>
-                        </Buttons>
-                    
-                       
+                        </Buttons>      
                         
                         <Buttons                     
                             w='w-20' 
