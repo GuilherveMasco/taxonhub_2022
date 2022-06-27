@@ -1,10 +1,13 @@
-import { Flex, Table, TableContainer, Tbody, Th, Thead, Tr, VStack, Spinner, useToast } from '@chakra-ui/react';
+import { Flex, Table, TableContainer, Tbody, Th, Thead, Tr, VStack, Spinner, useToast, HStack, Box } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { RiSave3Fill } from "react-icons/ri";
 import { ComponentsTable } from '../../components/TaxonomicTable/componentsTable';
 import { ITaxonomic } from '../../models/taxonomic';
 import { Buttons } from '../../components/Buttons/buttons';
+
+import { TbFileUpload } from "react-icons/tb";
+import { MdSearch } from "react-icons/md";
 
 export default function ResultadoTaxonomico() {  
     const [taxonomic, setTaxonomic] = useState<ITaxonomic[]>([] as ITaxonomic[]);
@@ -81,10 +84,29 @@ export default function ResultadoTaxonomico() {
             <Flex justifyContent='center'>
                 <div>
                     <VStack spacing='2rem'>
-                        <div  className="w-[123rem]">
-                            <h1 className="text-4xl	font-bold text-left pt-9">
-                                Resultado de busca taxonômica
-                            </h1>
+                        <div  className="w-[123rem]">                            
+                            <HStack spacing='5rem' spacing-between>
+                                <h1 className="text-4xl	font-bold text-left pt-9">
+                                    Resultado de busca taxonômica
+                                </h1>
+                                <Buttons w='w-72'h='h-16'>
+                                    Enviar arquivo
+                                    <TbFileUpload size='3rem' color='transparent'/> {/* É gambiarra mesmo, não sei um jeito melhor */}
+                                    <Box display="inherit" color='transparent' overflow='hidden' opacity={1}>
+                                        <input type="file" accept=".csv" id='fileInput' required/>
+                                    </Box>
+                                </Buttons>      
+                                
+                                <Buttons                     
+                                    w='w-20' 
+                                    h='h-16'
+                                    id='submit'
+                                    type="submit"
+                                >
+                                    <MdSearch size='3.5rem' />
+                                </Buttons>
+                            </HStack>
+                            
                         </div>
 
                         <div className="bg-white w-1990 h-647 rounded-3xl flex flex-row">

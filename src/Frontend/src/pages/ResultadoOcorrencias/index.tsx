@@ -1,10 +1,14 @@
-import { Flex, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr, useToast, VStack } from '@chakra-ui/react';
+import { Box, Flex, HStack, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr, useToast, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { ComponentsTable } from '../../components/OccurrenceTable/componentsTable';
 import { IOccurrence } from '../../models/occurrence';
 import { Buttons } from '../../components/Buttons/buttons';
 import { RiSave3Fill } from "react-icons/ri";
+
+
+import { TbFileUpload } from "react-icons/tb";
+import { MdSearch } from "react-icons/md";
 
 export default function ResultadoOcorrencias() {  
     const [occurrence, setOccurrence] = useState<IOccurrence[]>([] as IOccurrence[]);
@@ -78,9 +82,27 @@ export default function ResultadoOcorrencias() {
                 <div>
                     <VStack spacing='2rem'>
                         <div  className="w-[123rem]">
-                            <h1 className="text-4xl	font-bold text-left pt-9">
-                                Resultado de ocorrências
-                            </h1>
+                            <HStack spacing='5rem' spacing-between>
+                                <h1 className="text-4xl	font-bold text-left pt-9">
+                                    Resultado de ocorrências
+                                </h1>
+                                <Buttons w='w-72'h='h-16'>
+                                    Enviar arquivo
+                                    <TbFileUpload size='3rem' color='transparent'/> {/* É gambiarra mesmo, não sei um jeito melhor */}
+                                    <Box display="inherit" color='transparent' overflow='hidden' opacity={1}>
+                                        <input type="file" accept=".csv" id='fileInput' required/>
+                                    </Box>
+                                </Buttons>      
+                                
+                                <Buttons                     
+                                    w='w-20' 
+                                    h='h-16'
+                                    id='submit'
+                                    type="submit"
+                                >
+                                    <MdSearch size='3.5rem' />
+                                </Buttons>
+                            </HStack>
                         </div>
 
                         <div className=" bg-white w-1990 h-647 rounded-3xl flex flex-row">
