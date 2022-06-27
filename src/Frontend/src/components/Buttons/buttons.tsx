@@ -21,7 +21,7 @@ function Buttons({bg='bg-white', rounded='rounded-xl', text='text-xl', textColor
                 p-5  
                 inline-flex 
                 items-center
-                hover:opacity-80
+                hover:opacity-70
                 transition-all duration-200
             `}           
                 {...rest}

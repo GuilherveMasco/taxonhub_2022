@@ -1,10 +1,13 @@
-import { Flex, Table, TableContainer, Tbody, Th, Thead, Tr, VStack, Spinner, useToast } from '@chakra-ui/react';
+import { Flex, Table, TableContainer, Tbody, Th, Thead, Tr, VStack, Spinner, useToast, HStack, Box } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { RiSave3Fill } from "react-icons/ri";
 import { ComponentsTable } from '../../components/TaxonomicTable/componentsTable';
 import { ITaxonomic } from '../../models/taxonomic';
 import { Buttons } from '../../components/Buttons/buttons';
+
+import { TbFileUpload } from "react-icons/tb";
+import { MdSearch } from "react-icons/md";
 
 export default function ResultadoTaxonomico() {  
     const [taxonomic, setTaxonomic] = useState<ITaxonomic[]>([] as ITaxonomic[]);
@@ -13,8 +16,8 @@ export default function ResultadoTaxonomico() {
 
     async function saveCSV() {
         try {
-            window.open('https://storage.googleapis.com/teste-250412.appspot.com/modelo_novo_output_1a_lista.csv'); //cenário de teste
-           // window.open('http://localhost:8080/downloadCSVTaxonomica'); //integração com o back
+            //window.open('https://storage.googleapis.com/teste-250412.appspot.com/modelo_novo_output_1a_lista.csv'); //cenário de teste
+            window.open('http://localhost:8080/downloadCSVTaxonomica'); //integração com o back
         } catch (error) {
             addToast({
                 title: 'Aconteceu um erro',
@@ -32,39 +35,39 @@ export default function ResultadoTaxonomico() {
         setTimeout(() => {
             setTaxonomic([{
                 id: '1',
-                nameP: 'any',
-                nameR: 'any',
-                nameA: 'any',
-                synonym: 'any',
-                bd: 'any',
-                family: 'any',
+                nameP: 'Eichhornia azurea',
+                nameR: 'Eichhornia azurea (Sw.) Kunth',
+                nameA: 'NOME_ACEITO',
+                synonym: '',
+                bd: 'FDB',
+                family: 'Pontederiaceae',
             },
             {
                 id: '2',
-                nameP: 'anhy',
-                nameR: 'anhy',
-                nameA: 'anhy',
-                synonym: 'anhy',
-                bd: 'anhy',
-                family: 'anhy',
+                nameP: 'Eichhornia azurea',
+                nameR: 'Eichhornia azurea var. rhizantha Seub.',
+                nameA: 'SINONIMO',
+                synonym: 'Eichhornia azurea (Sw.) Kunth',
+                bd: 'FDB',
+                family: 'Pontederiaceae',
             },
             {
                 id: '3',
-                nameP: 'any',
-                nameR: 'any',
-                nameA: 'any',
-                synonym: 'any',
-                bd: 'any',
-                family: 'any',
+                nameP: 'Eichhornia azurea',
+                nameR: 'Eichhornia azurea var. genuina Seub.',
+                nameA: 'SINONIMO',
+                synonym: 'Eichhornia azurea (Sw.) Kunth',
+                bd: 'FDB',
+                family: 'Pontederiaceae',
             },
             {
                 id: '4',
-                nameP: 'any',
-                nameR: 'any',
-                nameA: 'any',
-                synonym: 'any',
-                bd: 'any',
-                family: 'any',
+                nameP: 'Eichhornia azurea',
+                nameR: 'Eichhornia azurea var. rigida Seub.',
+                nameA: 'SINONIMO',
+                synonym: 'Eichhornia azurea (Sw.) Kunth',
+                bd: 'FDB',
+                family: 'Pontederiaceae',
             }])
             setIsLoadingTable(false);
         }, 2000)
@@ -81,10 +84,31 @@ export default function ResultadoTaxonomico() {
             <Flex justifyContent='center'>
                 <div>
                     <VStack spacing='2rem'>
-                        <div  className="w-[123rem]">
-                            <h1 className="text-4xl	font-bold text-left pt-9">
-                                Resultado de busca taxonômica
-                            </h1>
+                        <div  className="w-[123rem]">                            
+                            <HStack  justifyContent='space-between' >
+                                <h1 className="text-4xl	font-bold text-left pt-9">
+                                    Resultado de busca taxonômica
+                                </h1>
+                                <HStack spacing='5rem' >
+                                    <Buttons w='w-72'h='h-16'>
+                                        Enviar arquivo
+                                        <TbFileUpload size='3rem' color='transparent'/> {/* É gambiarra mesmo, não sei um jeito melhor */}
+                                        <Box display="inherit" color='transparent' overflow='hidden' opacity={1}>
+                                            <input type="file" accept=".csv" id='fileInput' required/>
+                                        </Box>
+                                    </Buttons>      
+                                    
+                                    <Buttons                     
+                                        w='w-20' 
+                                        h='h-16'
+                                        id='submit'
+                                        type="submit"
+                                    >
+                                        <MdSearch size='3.5rem' />
+                                    </Buttons>
+                                </HStack>
+                            </HStack>
+                            
                         </div>
 
                         <div className="bg-white w-1990 h-647 rounded-3xl flex flex-row">
