@@ -35,7 +35,7 @@ export default function ResultadoTaxonomico() {
     
     function getTaxonomic(){
         setTimeout(() => {
-            setTaxonomic([{
+            /* setTaxonomic([{
                 id: '1',
                 nameP: 'Eichhornia azurea',
                 nameR: 'Eichhornia azurea (Sw.) Kunth',
@@ -70,7 +70,7 @@ export default function ResultadoTaxonomico() {
                 synonym: 'Eichhornia azurea (Sw.) Kunth',
                 bd: 'FDB',
                 family: 'Pontederiaceae',
-            }])
+            }]) */
             setIsLoadingTable(false);
         }, 2000)
     }
