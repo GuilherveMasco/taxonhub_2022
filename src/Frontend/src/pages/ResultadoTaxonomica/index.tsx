@@ -10,11 +10,31 @@ import { MdSearch } from "react-icons/md";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from '@chakra-ui/react'
 import { usePapaParse  } from "react-papaparse";
 
-
 export default function ResultadoTaxonomico() {  
     const [taxonomic, setTaxonomic] = useState<ITaxonomic[]>([] as ITaxonomic[]);
     const [isLoadingTable, setIsLoadingTable] = useState<boolean>(true);
     const addToast = useToast();
+
+    async function uploadFile(){
+        console.log('entrou')
+        const input = document.getElementById('fileInput') as HTMLInputElement;
+        
+        var file = new FormData()
+        file.append('Upload', input.files[0])
+
+        fetch('http://localhost:8080/upload', {
+            method: 'POST',
+            body: file
+        }).then(
+            response => response.json()
+        ).then(
+            success => {
+                console.log(success.resposta)
+            }
+        ).catch(
+            error => console.log(error)
+        );
+    }
 
     async function saveCSV() {
         try {
@@ -151,7 +171,7 @@ export default function ResultadoTaxonomico() {
                                             Enviar arquivo
                                             <TbFileUpload size='3rem' color='transparent'/>
                                             <Box display="inherit" opacity={1}>
-                                                <input type="file" accept=".csv" id='fileInput' required/>
+                                                <input type="file" accept=".csv" id='fileInput' onChange={uploadFile} required/>
                                             </Box>
                                         </Buttons>      
                                         
