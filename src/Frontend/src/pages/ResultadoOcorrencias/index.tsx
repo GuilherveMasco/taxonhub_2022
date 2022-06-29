@@ -8,6 +8,7 @@ import { RiSave3Fill } from "react-icons/ri";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from '@chakra-ui/react'
 import { TbFileUpload } from "react-icons/tb";
 import { MdSearch } from "react-icons/md";
+import { usePapaParse  } from "react-papaparse";
 
 export default function ResultadoOcorrencias() {  
     const [occurrence, setOccurrence] = useState<IOccurrence[]>([] as IOccurrence[]);
@@ -248,6 +249,7 @@ export default function ResultadoOcorrencias() {
         
     const [overlay, setOverlay] = React.useState(<OverlayOne />)
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { readString } = usePapaParse();
 
     return (         
         <div className="bg-BgColor w-screen h-screen">
@@ -262,9 +264,44 @@ export default function ResultadoOcorrencias() {
                                     Resultado de ocorrências
                                 </h1>
                                 <form 
-                                    onSubmit={() => {
+                                    onSubmit={(event) => {
+                                        event.preventDefault();
                                         setOverlay(<OverlayOne />)
                                         onOpen()
+
+                                        var arquivo = document.getElementById("fileInput") as HTMLInputElement;
+                                        var reader = new FileReader();
+                                        var nomesPesquisa = {names:[]};
+                                        
+                                        reader.onload = function(){
+                                            
+                                            readString(reader.result.toString(), {
+                                                worker: true,
+                                                complete: async (results) => {
+                                                    results.data.shift();
+                                                    results.data.forEach(element => {
+                                                        if(element[0] != nomesPesquisa.names)
+                                                            nomesPesquisa.names.push(element[0]);
+                                                    }
+                                                    )
+                                                    
+                                                    const requestOptions = {
+                                                        method: 'POST',
+                                                        headers: { 'Content-Type': 'application/json' },
+                                                        body: JSON.stringify(nomesPesquisa)
+                                                    };
+                                                    const response = await fetch('http://localhost:8080/specieslink', requestOptions);
+                                                    const nomesretornados = await response.json();
+                                                    
+                                                    console.log(nomesretornados);
+
+                                                    setOccurrence(nomesretornados);
+                                                    onClose();
+                                                },
+                                            });
+                                        };
+                                        
+                                        reader.readAsText(arquivo.files[0]);
                                     }}
                                 >
                                     <HStack spacing='5rem' >

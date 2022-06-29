@@ -184,7 +184,8 @@ export default function ResultadoTaxonomico() {
                                                 complete: async (results) => {
                                                     results.data.shift();
                                                     results.data.forEach(element => {
-                                                        nomesPesquisa.names.push(element[0]);
+                                                        if(element[0] != nomesPesquisa.names)
+                                                            nomesPesquisa.names.push(element[0]);
                                                     }
                                                     )
                                                     
@@ -198,10 +199,6 @@ export default function ResultadoTaxonomico() {
                                                     
                                                     console.log(nomesretornados);
 
-                                                    // Formatar dados
-                                                    
-
-                                                    // Chamar a função com os dados formatados
                                                     setTaxonomic(nomesretornados);
                                                     onClose();
                                                 },
