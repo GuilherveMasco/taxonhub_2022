@@ -1,5 +1,5 @@
 import { Box, Flex, HStack, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr, useToast, VStack, Center, Button, useDisclosure  } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Header } from '../../components/Header';
 import { ComponentsTable } from '../../components/OccurrenceTable/componentsTable';
 import { IOccurrence } from '../../models/occurrence';
@@ -361,6 +361,12 @@ export default function ResultadoOcorrencias() {
     const [overlay, setOverlay] = React.useState(<OverlayOne />)
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { readString } = usePapaParse();
+    const abortController = useRef(null);
+
+    const cancelarPesquisa = () => {
+        abortController.current && abortController.current.abort();
+        onClose();
+    }
 
     return (         
         <div className="bg-BgColor w-screen h-screen">
@@ -392,29 +398,71 @@ export default function ResultadoOcorrencias() {
                                                     results.data.shift();
                                                     results.data.forEach(element => {
                                                         if(element[0] != nomesPesquisa.names)
-                                                            nomesPesquisa.names.push(element[0]);
+                                                        nomesPesquisa.names.push(element[0]);
                                                     }
                                                     )
                                                     
-                                                    const requestOptions = {
-                                                        method: 'POST',
-                                                        headers: { 'Content-Type': 'application/json' },
-                                                        body: JSON.stringify(nomesPesquisa)
-                                                    };
-                                                    const response = await fetch('http://localhost:8080/specieslink', requestOptions);
-                                                    const nomesretornados = await response.json();
+                                                    // const requestOptions = {
+                                                    //     method: 'POST',
+                                                    //     headers: { 'Content-Type': 'application/json' },
+                                                    //     body: JSON.stringify(nomesPesquisa)
+                                                    // };
+                                                    // const response = await fetch('http://localhost:8080/specieslink', requestOptions);
+                                                    // const nomesretornados = await response.json();
+                                                    // setOccurrence(nomesretornados);
+                                                    // console.log(nomesretornados);
+                                                    // onClose();
                                                     
-                                                    console.log(nomesretornados);
-
-                                                    setOccurrence(nomesretornados);
-                                                    onClose();
-                                                },
-                                            });
-                                        };
-                                        
-                                        reader.readAsText(arquivo.files[0]);
-                                    }}
-                                >
+                                                    abortController.current = new AbortController();
+                                                    
+                                                    fetch('http://localhost:8080/specieslink', {
+                                                        method: 'POST',
+                                                        headers: {'content-type':'application/json'},
+                                                        mode: 'cors',
+                                                        body: JSON.stringify(nomesPesquisa),
+                                                        signal: abortController.current.signal,
+                                                    }).then(
+                                                        response => response.json()
+                                                        ).then(
+                                                            success => {console.log(success)
+                                                                setOccurrence(success);
+                                                                onClose();
+                                                                
+                                                                addToast({
+                                                                    title: 'Pesquisa realizada com sucesso',
+                                                                    description: "Dados carregados na tabela",
+                                                                    status: 'success',
+                                                                    isClosable: true,
+                                                                    duration: 4000,
+                                                                    position: 'top-right',
+                                                                    variant: 'left-accent'
+                                                                }) 
+                                                            }
+                                                            ).catch(
+                                                                e => {console.log(e)
+                                                                    var mensagem
+                                                                    if (e.name == 'AbortError')
+                                                                    mensagem = 'Pesquisa cancelada pelo usuário'
+                                                                    else
+                                                                    mensagem = e.message
+                                                                    
+                                                                    addToast({
+                                                                        title: 'Pesquisa cancelada',
+                                                                        description: mensagem,
+                                                                        duration: 4000,
+                                                                        status: 'error',
+                                                                        isClosable: true,
+                                                                        position: 'top-right',
+                                                                        variant: 'left-accent' 
+                                                                    })}
+                                                                    )
+                                                                    },
+                                                                });
+                                                            };
+                                                            
+                                                            reader.readAsText(arquivo.files[0]);
+                                                        }}
+                                                        >
                                     <HStack spacing='5rem' >
                                         <Buttons w='w-98'h='h-16' type='button'>
                                             Enviar arquivo
@@ -429,11 +477,11 @@ export default function ResultadoOcorrencias() {
                                             h='h-16'
                                             id='submit'
                                             type="submit"
-                                        >
+                                            >
                                             <MdSearch size='3.5rem' />
                                         </Buttons>
                                     </HStack>
-                                    <Modal isCentered isOpen={isOpen} onClose={onClose}>
+                                    <Modal isCentered isOpen={isOpen} onClose={cancelarPesquisa}>
                                     {overlay}
                                         <ModalContent>
                                             <ModalHeader>
@@ -452,7 +500,7 @@ export default function ResultadoOcorrencias() {
                                                 </Center>
                                             </ModalBody>
                                             <ModalFooter>
-                                                <Button onClick={onClose}>Cancelar</Button>
+                                                <Button onClick={cancelarPesquisa}>Cancelar</Button>
                                             </ModalFooter>
                                         </ModalContent>
                                     </Modal>
