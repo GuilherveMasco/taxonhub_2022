@@ -1,5 +1,5 @@
 import { Flex, Table, TableContainer, Tbody, Th, Thead, Tr, VStack, Spinner, useToast, HStack, Box, Center, Button, useDisclosure } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Header } from '../../components/Header';
 import { RiSave3Fill } from "react-icons/ri";
 import { ComponentsTable } from '../../components/TaxonomicTable/componentsTable';
@@ -29,87 +29,101 @@ export default function ResultadoTaxonomico() {
         ).then(
             success => {
                 console.log(success.resposta)
-                var nomeArq = {file:input.files[0].name}
-                    fetch('http://localhost:8080/verificaCSV', {
-                        method: 'POST',
-                        headers: {'content-type':'application/json'},
-                        mode: 'cors',
-                        body: JSON.stringify(nomeArq)
-                    }).then(
-                        response => response.json()
-                    ).then(
-                        success => {console.log(success.resposta)
-                        if(success.resposta == 'Arquivo Com Formato Válido'){
-                            fetch('http://localhost:8080/validateCSV', {
-                                method: 'POST',
-                                headers: {'content-type':'application/json'},
-                                mode: 'cors',
-                                body: JSON.stringify(nomeArq)
-                            }).then(
-                                response => response.json()
-                            ).then(
-                                success => {console.log(success.resposta)
-                                    if(success.resposta == 'Arquivo Válido'){
+                if(success.resposta === "Arquivo salvo com sucesso!"){
+                    var nomeArq = {file:input.files[0].name}
+                        fetch('http://localhost:8080/verificaCSV', {
+                            method: 'POST',
+                            headers: {'content-type':'application/json'},
+                            mode: 'cors',
+                            body: JSON.stringify(nomeArq)
+                        }).then(
+                            response => response.json()
+                        ).then(
+                            success => {console.log(success.resposta)
+                            if(success.resposta == 'Arquivo Com Formato Válido'){
+                                fetch('http://localhost:8080/validateCSV', {
+                                    method: 'POST',
+                                    headers: {'content-type':'application/json'},
+                                    mode: 'cors',
+                                    body: JSON.stringify(nomeArq)
+                                }).then(
+                                    response => response.json()
+                                ).then(
+                                    success => {console.log(success.resposta)
+                                        if(success.resposta == 'Arquivo Válido'){
+                                            addToast({
+                                                title: 'Arquivo Enviado',
+                                                description: success.resposta,
+                                                status: 'success',
+                                                duration: 4000,
+                                                isClosable: true,
+                                                position: 'top-right',
+                                                variant: 'left-accent'
+                                            })   
+                                    }else{
                                         addToast({
-                                            title: 'Arquivo Enviado',
+                                            title: 'Aconteceu um erro',
                                             description: success.resposta,
-                                            status: 'success',
+                                            status: 'error',
                                             duration: 4000,
                                             isClosable: true,
                                             position: 'top-right',
-                                            variant: 'left-accent'
-                                        })   
-                                }else{
-                                    addToast({
-                                        title: 'Aconteceu um erro',
-                                        description: success.resposta,
-                                        status: 'error',
-                                        duration: 4000,
-                                        isClosable: true,
-                                        position: 'top-right',
-                                        variant: 'left-accent' 
+                                            variant: 'left-accent' 
+                                    })
+                                    event.target.value = null
+                                }}
+                                ).catch(
+                                    error => {console.log(error.resposta)
+                                        addToast({
+                                            title: 'Aconteceu um erro',
+                                            description: success.resposta,
+                                            status: 'error',
+                                            duration: 4000,
+                                            isClosable: true,
+                                            position: 'top-right',
+                                            variant: 'left-accent' 
+                                    })
+                                    event.target.value = null }
+                                    )
+                            }else{
+                                addToast({
+                                    title: 'Aconteceu um erro',
+                                    description: success.resposta,
+                                    status: 'error',
+                                    duration: 4000,
+                                    isClosable: true,
+                                    position: 'top-right',
+                                    variant: 'left-accent'
                                 })
                                 event.target.value = null
-                            }}
-                            ).catch(
-                                error => {console.log(error.resposta)
-                                    addToast({
-                                        title: 'Aconteceu um erro',
-                                        description: success.resposta,
-                                        status: 'error',
-                                        duration: 4000,
-                                        isClosable: true,
-                                        position: 'top-right',
-                                        variant: 'left-accent' 
-                                })
-                                event.target.value = null }
-                                )
-                        }else{
-                            addToast({
-                                title: 'Aconteceu um erro',
-                                description: success.resposta,
-                                status: 'error',
-                                duration: 4000,
-                                isClosable: true,
-                                position: 'top-right',
-                                variant: 'left-accent'
-                            })
-                            event.target.value = null
+                            }
                         }
-                    }
-                    ).catch(
-                        error => {console.log(error.resposta)
-                            addToast({
-                                title: 'Aconteceu um erro',
-                                description: error.resposta,
-                                status: 'error',
-                                duration: 4000,
-                                isClosable: true,
-                                position: 'top-right',
-                                variant: 'left-accent'
-                            })
-                        event.target.value = null }
-                        )
+                        ).catch(
+                            error => {console.log(error.resposta)
+                                addToast({
+                                    title: 'Aconteceu um erro',
+                                    description: error.resposta,
+                                    status: 'error',
+                                    duration: 4000,
+                                    isClosable: true,
+                                    position: 'top-right',
+                                    variant: 'left-accent'
+                                })
+                            event.target.value = null }
+                            )
+
+                }else{
+                    addToast({
+                        title: 'Erro',
+                        description: success.resposta,
+                        status: 'error',
+                        duration: 4000,
+                        isClosable: true,
+                        position: 'top-right',
+                        variant: 'left-accent'
+                    });
+                    event.target.value = null
+                }
             }
         ).catch(
             error => {console.log(error)
@@ -199,9 +213,15 @@ export default function ResultadoTaxonomico() {
     const [overlay, setOverlay] = React.useState(<OverlayOne />)
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { readString } = usePapaParse();
+    const abortController = useRef(null);
 
-    return (       
-        <div className="bg-BgColor w-screen h-screen">
+    const cancelarPesquisa = () => {
+        abortController.current && abortController.current.abort();
+        onClose();
+    }
+      
+      return (       
+          <div className="bg-BgColor w-screen h-screen">
             <Header/>
             
             <Flex justifyContent='center'>
@@ -212,47 +232,78 @@ export default function ResultadoTaxonomico() {
                                 <h1 className="text-4xl	font-bold text-left pt-9">
                                     Resultado de busca taxonômica
                                 </h1>
-                                <form 
-                                    onSubmit={(event) => {
-                                        event.preventDefault();
-                                        setOverlay(<OverlayOne />);
-                                        onOpen();
+                                <form
+                                onSubmit={(event) => {
+                                    event.preventDefault();
+                                    setOverlay(<OverlayOne />);
+                                    onOpen();
+                                    
+                                    var arquivo = document.getElementById("fileInput") as HTMLInputElement;
+                                    var reader = new FileReader();
+                                    var nomesPesquisa = {names:[]};
+                                    
+                                    reader.onload = function(){
                                         
-                                        var arquivo = document.getElementById("fileInput") as HTMLInputElement;
-                                        var reader = new FileReader();
-                                        var nomesPesquisa = {names:[]};
-                                        
-                                        reader.onload = function(){
-                                            
-                                            readString(reader.result.toString(), {
-                                                worker: true,
-                                                complete: async (results) => {
-                                                    results.data.shift();
-                                                    results.data.forEach(element => {
-                                                        if(element[0] != nomesPesquisa.names)
-                                                            nomesPesquisa.names.push(element[0]);
-                                                    }
-                                                    )
-                                                    
-                                                    const requestOptions = {
-                                                        method: 'POST',
-                                                        headers: { 'Content-Type': 'application/json' },
-                                                        body: JSON.stringify(nomesPesquisa)
+                                        readString(reader.result.toString(), {
+                                            worker: true,
+                                            complete: async (results) => {
+                                                results.data.shift();
+                                                results.data.forEach(element => {
+                                                    if(element[0] != nomesPesquisa.names)
+                                                    nomesPesquisa.names.push(element[0]);
+                                                }
+                                                )
+                                                
+                                                abortController.current = new AbortController();
+                                                
+                                                fetch('http://localhost:8080/floradobrasil', {
+                                                    method: 'POST',
+                                                    headers: {'content-type':'application/json'},
+                                                    mode: 'cors',
+                                                    body: JSON.stringify(nomesPesquisa),
+                                                    signal: abortController.current.signal,
+                                                }).then(
+                                                    response => response.json()
+                                                    ).then(
+                                                        success => {console.log(success)
+                                                            setTaxonomic(success);
+                                                            onClose();
+                                                            
+                                                            addToast({
+                                                                title: 'Pesquisa realizada com sucesso',
+                                                                description: "Dados carregados na tabela",
+                                                                status: 'success',
+                                                                isClosable: true,
+                                                                duration: 4000,
+                                                                position: 'top-right',
+                                                                variant: 'left-accent'
+                                                            }) 
+                                                        }
+                                                        ).catch(
+                                                            e => {console.log(e)
+                                                                var mensagem
+                                                                if (e.name == 'AbortError')
+                                                                    mensagem = 'Pesquisa cancelada pelo usuário'
+                                                                else
+                                                                    mensagem = e.message
+                                                                
+                                                                addToast({
+                                                                    title: 'Pesquisa cancelada',
+                                                                    description: mensagem,
+                                                                    duration: 4000,
+                                                                    status: 'error',
+                                                                    isClosable: true,
+                                                                    position: 'top-right',
+                                                                    variant: 'left-accent' 
+                                                                })}
+                                                                )
+                                                            },
+                                                        });
                                                     };
-                                                    const response = await fetch('http://localhost:8080/floradobrasil', requestOptions);
-                                                    const nomesretornados = await response.json();
                                                     
-                                                    console.log(nomesretornados);
-
-                                                    setTaxonomic(nomesretornados);
-                                                    onClose();
-                                                },
-                                            });
-                                        };
-                                        
-                                        reader.readAsText(arquivo.files[0]);
-                                        }}
-                                        >
+                                                    reader.readAsText(arquivo.files[0]);
+                                                }}
+                                                >
                                     <HStack spacing='5rem' >
                                         <Buttons w='w-98'h='h-16' type='button'>
                                             Enviar arquivo
@@ -271,7 +322,7 @@ export default function ResultadoTaxonomico() {
                                             <MdSearch size='3.5rem' />
                                         </Buttons>
                                     </HStack>
-                                    <Modal isCentered isOpen={isOpen} onClose={onClose}>
+                                    <Modal isCentered isOpen={isOpen} onClose={cancelarPesquisa}>
                                     {overlay}
                                         <ModalContent>
                                             <ModalHeader>
@@ -290,7 +341,7 @@ export default function ResultadoTaxonomico() {
                                                 </Center>
                                             </ModalBody>
                                             <ModalFooter>
-                                                <Button onClick={onClose}>Cancelar</Button>
+                                                <Button onClick={cancelarPesquisa}>Cancelar</Button>
                                             </ModalFooter>
                                         </ModalContent>
                                     </Modal>
