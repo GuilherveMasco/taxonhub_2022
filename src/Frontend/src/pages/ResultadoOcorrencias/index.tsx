@@ -15,6 +15,72 @@ export default function ResultadoOcorrencias() {
     const [isLoadingTable, setIsLoadingTable] = useState<boolean>(true);
     const addToast = useToast();
     
+    async function uploadFile(event){
+        const input = document.getElementById('fileInput') as HTMLInputElement;
+        
+        var file = new FormData()
+        file.append('Upload', input.files[0])
+
+        fetch('http://localhost:8080/upload', {
+            method: 'POST',
+            body: file
+        }).then(
+            response => response.json()
+        ).then(
+            success => {
+                console.log(success.resposta)
+                var nomeArq = {file:input.files[0].name}
+                    fetch('http://localhost:8080/verificaCSV', {
+                        method: 'POST',
+                        headers: {'content-type':'application/json'},
+                        mode: 'cors',
+                        body: JSON.stringify(nomeArq)
+                    }).then(
+                        response => response.json()
+                    ).then(
+                        success => {console.log(success.resposta)
+                        if(success.resposta == 'Arquivo Com Formato Válido'){
+                            addToast({
+                                title: 'Deu Bom',
+                                description: success.resposta,
+                                status: 'success',
+                                duration: 4000,
+                                isClosable: true,
+                                position: 'top-right',
+                                variant: 'left-accent'
+                            })
+                        }else{
+                            addToast({
+                                title: 'Aconteceu um erro',
+                                description: success.resposta,
+                                status: 'error',
+                                duration: 4000,
+                                isClosable: true,
+                                position: 'top-right',
+                                variant: 'left-accent'
+                            })
+                            event.target.value = null
+                        }
+                    }
+                    ).catch(
+                        error => {console.log(error.resposta)
+                            addToast({
+                                title: 'Aconteceu um erro',
+                                description: error.resposta,
+                                status: 'error',
+                                duration: 4000,
+                                isClosable: true,
+                                position: 'top-right',
+                                variant: 'left-accent'
+                            })
+                        event.target.value = null }
+                        )
+            }
+        ).catch(
+            error => console.log(error)
+        );
+    }
+
     async function saveCSV() {
         try {
             //window.open('https://storage.googleapis.com/teste-250412.appspot.com/modelo_novo_output_1a_lista.csv'); //cenário de teste
@@ -309,7 +375,7 @@ export default function ResultadoOcorrencias() {
                                             Enviar arquivo
                                             <TbFileUpload size='3rem' color='transparent'/>
                                             <Box display="inherit" opacity={1}>
-                                                <input type="file" accept=".csv" id='fileInput' required/>
+                                                <input type="file" accept=".csv" id='fileInput' onChange={uploadFile} required/>
                                             </Box>
                                         </Buttons>      
                                         
