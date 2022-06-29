@@ -15,8 +15,7 @@ export default function ResultadoTaxonomico() {
     const [isLoadingTable, setIsLoadingTable] = useState<boolean>(true);
     const addToast = useToast();
 
-    async function uploadFile(){
-        console.log('entrou')
+    async function uploadFile(event){
         const input = document.getElementById('fileInput') as HTMLInputElement;
         
         var file = new FormData()
@@ -30,6 +29,52 @@ export default function ResultadoTaxonomico() {
         ).then(
             success => {
                 console.log(success.resposta)
+                var nomeArq = {file:input.files[0].name}
+                    fetch('http://localhost:8080/verificaCSV', {
+                        method: 'POST',
+                        headers: {'content-type':'application/json'},
+                        mode: 'cors',
+                        body: JSON.stringify(nomeArq)
+                    }).then(
+                        response => response.json()
+                    ).then(
+                        success => {console.log(success.resposta)
+                        if(success.resposta == 'Arquivo Com Formato Válido'){
+                            addToast({
+                                title: 'Deu Bom',
+                                description: success.resposta,
+                                status: 'success',
+                                duration: 4000,
+                                isClosable: true,
+                                position: 'top-right',
+                                variant: 'left-accent'
+                            })
+                        }else{
+                            addToast({
+                                title: 'Aconteceu um erro',
+                                description: success.resposta,
+                                status: 'error',
+                                duration: 4000,
+                                isClosable: true,
+                                position: 'top-right',
+                                variant: 'left-accent'
+                            })
+                            event.target.value = null
+                        }
+                    }
+                    ).catch(
+                        error => {console.log(error.resposta)
+                            addToast({
+                                title: 'Aconteceu um erro',
+                                description: error.resposta,
+                                status: 'error',
+                                duration: 4000,
+                                isClosable: true,
+                                position: 'top-right',
+                                variant: 'left-accent'
+                            })
+                        event.target.value = null }
+                        )
             }
         ).catch(
             error => console.log(error)

@@ -9,29 +9,29 @@ module.exports = () => {
   const controller = {};
 
   controller.verificaFile = async (req, res) => {
-    const file = "Arquivos/" + req.body.file;
+    const file = "uploads/" + req.body.file;
     console.log();
     console.log("Lendo o arquivo:");
     console.log(file);
     console.log();
     
-    var respostaArquivo = "";
+    var respostaArquivo = [];
     if (file.substring(file.length - 4) != ".csv") {
-      respostaArquivo = "Arquivo Inválido";
+      respostaArquivo = {resposta: "Arquivo Com Formato Inválido"};
       console.log(respostaArquivo);
-      res.send(respostaArquivo);
+      res.json(respostaArquivo);
     } else {
       readFile(file, (err, data) => {
         if (err) {
-          respostaArquivo = "Erro ao ler o arquivo";
+          respostaArquivo = {resposta: "Arquivo Corrompido"};
           console.log(respostaArquivo);
-          res.send(respostaArquivo);
+          res.json(respostaArquivo);
           console.log(err);
           return;
         }
-        respostaArquivo = "Arquivo Lido com sucesso";
+        respostaArquivo = {resposta: "Arquivo Com Formato Válido"};
         console.log(respostaArquivo);
-        res.send(respostaArquivo);
+        res.json(respostaArquivo);
       });
     }
   };
