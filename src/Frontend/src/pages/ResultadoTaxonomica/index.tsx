@@ -214,6 +214,7 @@ export default function ResultadoTaxonomico() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { readString } = usePapaParse();
     const abortController = useRef(null);
+    const [btnSalvar, setSalvar] = useState("");
 
     const cancelarPesquisa = () => {
         abortController.current && abortController.current.abort();
@@ -237,6 +238,7 @@ export default function ResultadoTaxonomico() {
                                     event.preventDefault();
                                     setOverlay(<OverlayOne />);
                                     onOpen();
+                                    setSalvar("");
                                     
                                     var arquivo = document.getElementById("fileInput") as HTMLInputElement;
                                     var reader = new FileReader();
@@ -268,6 +270,7 @@ export default function ResultadoTaxonomico() {
                                                         success => {console.log(success)
                                                             setTaxonomic(success);
                                                             onClose();
+                                                            setSalvar("true");
                                                             
                                                             addToast({
                                                                 title: 'Pesquisa realizada com sucesso',
@@ -379,7 +382,7 @@ export default function ResultadoTaxonomico() {
                             ) }       
                         </div>  
                         <div  className=' absolute bottom-0 right-14 p-7 px-4' >                                
-                            <Buttons onClick={saveCSV}>
+                            <Buttons onClick={saveCSV} disabled={!btnSalvar}>
                                 Salvar arquivo gerado <RiSave3Fill size='2.5rem'/>
                             </Buttons>                                                  
                         </div>                           

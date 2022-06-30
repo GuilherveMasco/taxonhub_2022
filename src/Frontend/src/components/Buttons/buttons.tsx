@@ -23,6 +23,7 @@ function Buttons({bg='bg-white', rounded='rounded-xl', text='text-xl', textColor
                 items-center
                 hover:opacity-70
                 transition-all duration-200
+                disabled:opacity-50
             `}           
                 {...rest}
             />  
