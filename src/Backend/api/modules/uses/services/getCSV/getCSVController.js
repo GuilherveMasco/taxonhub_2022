@@ -35,7 +35,7 @@ module.exports = () => {
       });
     }
   };
-  
+ /*  
   controller.handle = async (req, res) => {
     const result = await execute(req.file.path);
 
@@ -66,6 +66,6 @@ module.exports = () => {
       }
     }
   }
-
+ */
   return controller;
 };
