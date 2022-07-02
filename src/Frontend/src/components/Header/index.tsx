@@ -38,9 +38,10 @@ export function Header() {
                 }}
             >
             </form>
-                <HStack className='m-10 px-8' style={{cursor:"pointer"}} spacing='79rem' >
+                <HStack className='m-10 px-8' spacing='79rem' >
+                    <button>
                         <Image src="https://i.ibb.co/6y78TjR/logo.png" alt="Logo" width={277} height={86} onClick={goHome}/>
-                    
+                    </button>                    
                 </HStack>
 
             <Modal isCentered isOpen={isOpen} onClose={onClose}>
