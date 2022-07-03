@@ -9,15 +9,20 @@ module.exports = () => {
 
             let form = new formidable.IncomingForm();
 
+            let resposta = [];
+
             form.parse(req, function (error, fields, file) {
                 let filepath = file.Upload.filepath;
 
                 fs.copyFile(filepath, './uploads/'+file.Upload.originalFilename,  err => {
                     if (err) {
                       console.error(err);
-                      res.send("ERRO Ao salvar o arquivo!");
+                      resposta = {resposta:"ERRO Ao salvar o arquivo!"};
+                    }else{
+                      resposta = {resposta:"Arquivo salvo com sucesso!"};
                     }
-                    res.send("Arquivo salvo com sucesso!");
+                      console.log(resposta)
+                      res.json(resposta);
                   });
                 });
     };

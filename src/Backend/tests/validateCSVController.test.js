@@ -1,26 +1,26 @@
 const app = require("../config/express");
 const request = require("supertest");
 
-test("Teste de Arquivo Válido: ", async () => {
+test("Teste de CSV de formatação correta: ", async () => {
   const response = await request(app)
     .post("/validateCSV")
-    .send({ file : "testeValidacao_ocorrencias.csv" });
+    .send({ file : "output_taxonomica.csv" });
   expect(response.statusCode).toEqual(200);
-  expect(response.text).toBe("Arquivo Válido");
+  expect(response.text).toContain("Arquivo Válido");
 });
 
-test("Teste de Arquivo Inválido: ", async () => {
+test("Teste de CSV de formatação incorreta ", async () => {
   const response = await request(app)
   .post("/validateCSV")
-  .send({ file : "testeValidacao_ocorrenciasInvalido.csv" });
+  .send({ file : "output_taxonomica_invalido.csv" });
   expect(response.statusCode).toEqual(200);
-  expect(response.text).toBe("Arquivo Inválido");
+  expect(response.text).toContain("Arquivo Inválido");
 });
 
-test("Teste de Arquivo Inválido: ", async () => {
+test("Teste de CSV com erro na leitura ", async () => {
   const response = await request(app)
   .post("/validateCSV")
   .send({ file : "testeValidacao_ocorrenciasInvalidoo.csv" });
   expect(response.statusCode).toEqual(200);
-  expect(response.text).toBe("Erro ao ler o arquivo");
+  expect(response.text).toContain("Erro ao ler o arquivo");
 });

@@ -1,5 +1,5 @@
 import { Box, Flex, HStack, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr, useToast, VStack, Center, Button, useDisclosure  } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Header } from '../../components/Header';
 import { ComponentsTable } from '../../components/OccurrenceTable/componentsTable';
 import { IOccurrence } from '../../models/occurrence';
@@ -8,34 +8,159 @@ import { RiSave3Fill } from "react-icons/ri";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from '@chakra-ui/react'
 import { TbFileUpload } from "react-icons/tb";
 import { MdSearch } from "react-icons/md";
+import { usePapaParse  } from "react-papaparse";
 
 export default function ResultadoOcorrencias() {  
     const [occurrence, setOccurrence] = useState<IOccurrence[]>([] as IOccurrence[]);
     const [isLoadingTable, setIsLoadingTable] = useState<boolean>(true);
     const addToast = useToast();
     
-    async function saveCSV() {
-        try {
-            //window.open('https://storage.googleapis.com/teste-250412.appspot.com/modelo_novo_output_1a_lista.csv'); //cenário de teste
-            window.open('http://localhost:8080/downloadCSVOcorrencias'); //integração com o back
-        } catch (error) {
-            addToast({
-                title: 'Aconteceu um erro',
-                description: 'Não foi possível salvar o arquivo',
-                status: 'error',
-                duration: 4000,
-                isClosable: true,
-                position: 'top-right',
-                variant: 'left-accent'
-            })
+    async function uploadFile(event){
+        const input = document.getElementById('fileInput') as HTMLInputElement;
+        
+        var file = new FormData()
+        file.append('Upload', input.files[0])
+        
+        fetch('http://localhost:8080/upload', {
+            method: 'POST',
+            body: file
+        }).then(
+            response => response.json()
+            ).then(
+                success => {
+                    console.log(success.resposta)
+                    if(success.resposta === "Arquivo salvo com sucesso!"){
+                        var nomeArq = {file:input.files[0].name}
+                        fetch('http://localhost:8080/verificaCSV', {
+                            method: 'POST',
+                            headers: {'content-type':'application/json'},
+                            mode: 'cors',
+                            body: JSON.stringify(nomeArq)
+                        }).then(
+                            response => response.json()
+                            ).then(
+                                success => {console.log(success.resposta)
+                                    if(success.resposta == 'Arquivo Com Formato Válido'){
+                                        fetch('http://localhost:8080/validateCSV', {
+                                method: 'POST',
+                                headers: {'content-type':'application/json'},
+                                mode: 'cors',
+                                body: JSON.stringify(nomeArq)
+                            }).then(
+                                response => response.json()
+                                ).then(
+                                    success => {console.log(success.resposta)
+                                        if(success.resposta == 'Arquivo Válido'){
+                                            addToast({
+                                                title: 'Arquivo Enviado',
+                                                description: success.resposta,
+                                                status: 'success',
+                                                duration: 4000,
+                                                isClosable: true,
+                                                position: 'top-right',
+                                                variant: 'left-accent'
+                                            })   
+                                        }else{
+                                            addToast({
+                                                title: 'Aconteceu um erro',
+                                                description: success.resposta,
+                                                status: 'error',
+                                                duration: 4000,
+                                                isClosable: true,
+                                                position: 'top-right',
+                                                variant: 'left-accent' 
+                                            })
+                                            event.target.value = null
+                                        }}
+                                        ).catch(
+                                            error => {console.log(error.resposta)
+                                                addToast({
+                                        title: 'Aconteceu um erro',
+                                        description: success.resposta,
+                                        status: 'error',
+                                        duration: 4000,
+                                        isClosable: true,
+                                        position: 'top-right',
+                                        variant: 'left-accent' 
+                                    })
+                                    event.target.value = null }
+                                    )
+                                }else{
+                            addToast({
+                                title: 'Aconteceu um erro',
+                                description: success.resposta,
+                                status: 'error',
+                                duration: 4000,
+                                isClosable: true,
+                                position: 'top-right',
+                                variant: 'left-accent'
+                            })
+                            event.target.value = null
+                        }
+                    }
+                    ).catch(
+                        error => {console.log(error.resposta)
+                            addToast({
+                                title: 'Aconteceu um erro',
+                                description: error.resposta,
+                                status: 'error',
+                                duration: 4000,
+                                isClosable: true,
+                                position: 'top-right',
+                                variant: 'left-accent'
+                            })
+                            event.target.value = null }
+                            )
+                        }else{
+                            addToast({
+                                title: 'Erro',
+                                description: success.resposta,
+                                status: 'error',
+                                duration: 4000,
+                                isClosable: true,
+                                position: 'top-right',
+                                variant: 'left-accent'
+                            });
+                            event.target.value = null
+                        }
+                    }
+                    ).catch(
+            error => {console.log(error)
+                addToast({
+                    title: 'Aconteceu um erro',
+                    description: error,
+                    status: 'error',
+                    duration: 4000,
+                    isClosable: true,
+                    position: 'top-right',
+                    variant: 'left-accent'
+                })
+            event.target.value = null }
+            );
         }
-    }
-
-    function getOccurrence(){
-        setTimeout(() => {
-            /* setOccurrence([{
-                id: '1',
-                entry_name: 'Abildgaardia ovata (Burm.f. Kral)',
+        
+        async function saveCSV() {
+            try {
+                //window.open('https://storage.googleapis.com/teste-250412.appspot.com/modelo_novo_output_1a_lista.csv'); //cenário de teste
+                window.open('http://localhost:8080/downloadCSVOcorrencias'); //integração com o back
+            } catch (error) {
+                addToast({
+                    title: 'Aconteceu um erro',
+                    description: 'Não foi possível salvar o arquivo',
+                    status: 'error',
+                    duration: 4000,
+                    isClosable: true,
+                    position: 'top-right',
+                    variant: 'left-accent'
+                })
+            }
+        }
+        
+        function getOccurrence(){
+            setTimeout(() => {
+                /* setOccurrence([{
+                    id: '1',
+                    entry_name: 'Abildgaardia ovata (Burm.f. Kral)',
                 found_name: 'Abildgaardia ovata (Burm. Kral)',
                 accepted_name: 'Fimbristylis ovata (Burm.f. J.Kern)',
                 base_de_dados: 'SPL',
@@ -248,6 +373,21 @@ export default function ResultadoOcorrencias() {
         
     const [overlay, setOverlay] = React.useState(<OverlayOne />)
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { readString } = usePapaParse();
+    const abortController = useRef(null);
+    const [btnSalvar, setSalvar] = useState("");
+
+    const cancelarPesquisa = () => {
+        abortController.current && abortController.current.abort();
+        onClose();
+    }
+
+    function valorRepetido(elemento, nomes){
+        for(var i = 0; i < nomes.length; i++)
+            if(nomes[i] === elemento)
+                return true;
+        return false;
+    }
 
     return (         
         <div className="bg-BgColor w-screen h-screen">
@@ -262,17 +402,85 @@ export default function ResultadoOcorrencias() {
                                     Resultado de ocorrências
                                 </h1>
                                 <form 
-                                    onSubmit={() => {
+                                    onSubmit={(event) => {
+                                        event.preventDefault();
                                         setOverlay(<OverlayOne />)
                                         onOpen()
-                                    }}
-                                >
+                                        setSalvar("");
+
+                                        var arquivo = document.getElementById("fileInput") as HTMLInputElement;
+                                        var reader = new FileReader();
+                                        var nomesPesquisa = {names:[]};
+                                        
+                                        reader.onload = function(){
+                                            
+                                            readString(reader.result.toString(), {
+                                                worker: true,
+                                                complete: async (results) => {
+                                                    results.data.shift();
+                                                    results.data.forEach(element => {
+                                                        if(!valorRepetido(element[0], nomesPesquisa.names) && element[0].trim() != 0)
+                                                        nomesPesquisa.names.push(element[0]);
+                                                    }
+                                                    )
+                                                    
+                                                    abortController.current = new AbortController();
+                                                    
+                                                    fetch('http://localhost:8080/specieslink', {
+                                                        method: 'POST',
+                                                        headers: {'content-type':'application/json'},
+                                                        mode: 'cors',
+                                                        body: JSON.stringify(nomesPesquisa),
+                                                        signal: abortController.current.signal,
+                                                    }).then(
+                                                        response => response.json()
+                                                        ).then(
+                                                            success => {console.log(success)
+                                                                setOccurrence(success);
+                                                                onClose();
+                                                                setSalvar("true");
+                                                                
+                                                                addToast({
+                                                                    title: 'Pesquisa realizada com sucesso',
+                                                                    description: "Dados carregados na tabela",
+                                                                    status: 'success',
+                                                                    isClosable: true,
+                                                                    duration: 4000,
+                                                                    position: 'top-right',
+                                                                    variant: 'left-accent'
+                                                                }) 
+                                                            }
+                                                            ).catch(
+                                                                e => {console.log(e)
+                                                                    var mensagem
+                                                                    if (e.name == 'AbortError')
+                                                                    mensagem = 'Pesquisa cancelada pelo usuário'
+                                                                    else
+                                                                    mensagem = e.message
+                                                                    
+                                                                    addToast({
+                                                                        title: 'Pesquisa cancelada',
+                                                                        description: mensagem,
+                                                                        duration: 4000,
+                                                                        status: 'error',
+                                                                        isClosable: true,
+                                                                        position: 'top-right',
+                                                                        variant: 'left-accent' 
+                                                                    })}
+                                                                    )
+                                                                    },
+                                                                });
+                                                            };
+                                                            
+                                                            reader.readAsText(arquivo.files[0]);
+                                                        }}
+                                                        >
                                     <HStack spacing='5rem' >
                                         <Buttons w='w-98'h='h-16' type='button'>
                                             Enviar arquivo
                                             <TbFileUpload size='3rem' color='transparent'/>
                                             <Box display="inherit" opacity={1}>
-                                                <input type="file" accept=".csv" id='fileInput' required/>
+                                                <input type="file" accept=".csv" id='fileInput' onChange={uploadFile} required/>
                                             </Box>
                                         </Buttons>      
                                         
@@ -281,11 +489,11 @@ export default function ResultadoOcorrencias() {
                                             h='h-16'
                                             id='submit'
                                             type="submit"
-                                        >
+                                            >
                                             <MdSearch size='3.5rem' />
                                         </Buttons>
                                     </HStack>
-                                    <Modal isCentered isOpen={isOpen} onClose={onClose}>
+                                    <Modal isCentered isOpen={isOpen} onClose={cancelarPesquisa}>
                                     {overlay}
                                         <ModalContent>
                                             <ModalHeader>
@@ -304,7 +512,7 @@ export default function ResultadoOcorrencias() {
                                                 </Center>
                                             </ModalBody>
                                             <ModalFooter>
-                                                <Button onClick={onClose}>Cancelar</Button>
+                                                <Button onClick={cancelarPesquisa}>Cancelar</Button>
                                             </ModalFooter>
                                         </ModalContent>
                                     </Modal>
@@ -346,7 +554,7 @@ export default function ResultadoOcorrencias() {
                                 ) }              
                         </div>     
                         <div  className=' absolute bottom-0 right-14 p-7 px-4' >                                
-                            <Buttons onClick={saveCSV}>
+                            <Buttons onClick={saveCSV} disabled={!btnSalvar}>
                                 Salvar arquivo gerado <RiSave3Fill size='2.5rem'/>
                             </Buttons>                                                  
                         </div>                                                    

@@ -7,6 +7,7 @@ import { MdSearch } from "react-icons/md";
 import React from "react";
 import router from "next/router";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from '@chakra-ui/react'
+import { cursorTo } from "readline";
 
 export function Header() {      
     function goHome(){
@@ -38,8 +39,9 @@ export function Header() {
             >
             </form>
                 <HStack className='m-10 px-8' spacing='79rem' >
+                    <button>
                         <Image src="https://i.ibb.co/6y78TjR/logo.png" alt="Logo" width={277} height={86} onClick={goHome}/>
-                    
+                    </button>                    
                 </HStack>
 
             <Modal isCentered isOpen={isOpen} onClose={onClose}>

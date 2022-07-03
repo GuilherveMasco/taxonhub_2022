@@ -6,8 +6,8 @@ module.exports = app => {
   const getCSVController = app.modules.uses.services.getCSV.getCSVController;
   const getCSVByNameController = app.modules.uses.services.getDataCSVByName.getDataCSVByNameController;
 
-  app.route("/CSV")
-    .get(upload.single('file'), getCSVController.handle)
+  /* app.route("/CSV")
+    .get(upload.single('file'), getCSVController.handle) */
 
   app.route("/CSVByName/:name")
     .get(upload.single('file'), getCSVByNameController.handle)

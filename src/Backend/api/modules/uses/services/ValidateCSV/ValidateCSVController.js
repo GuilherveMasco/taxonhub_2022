@@ -7,18 +7,18 @@ module.exports = () => {
   const controller = {};
 
   controller.validateCSV = async (req, res) => {
-    const file = "Arquivos/" + req.body.file;
+    const file = "uploads/" + req.body.file;
     console.log();
     console.log("Enviando o arquivo:");
     console.log(file);
     console.log();
     
-    var respostaArquivo = "";
+    var respostaArquivo = [];
     readFile(file, (err, data) => {
       if (err) {
-        respostaArquivo = "Erro ao ler o arquivo";
+        respostaArquivo = {resposta:"Erro ao ler o arquivo"};
         console.log(respostaArquivo);
-        res.send(respostaArquivo);
+        res.json(respostaArquivo);
         console.log(err);
         return;
       }
@@ -28,11 +28,11 @@ module.exports = () => {
       var arquivoCSV = papa.parse(data.toString());
 
       if (arquivoCSV.data[0].length == 6)
-        respostaArquivo = "Arquivo Válido";
+        respostaArquivo = {resposta:"Arquivo Válido"};
       else
-        respostaArquivo = "Arquivo Inválido";
+        respostaArquivo = {resposta:"Arquivo Inválido"};
             
-      res.send(respostaArquivo);
+      res.json(respostaArquivo);
       
       });
   };
