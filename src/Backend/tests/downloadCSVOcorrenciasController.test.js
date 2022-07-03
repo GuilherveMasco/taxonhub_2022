@@ -1,7 +1,7 @@
 const app = require("../config/express");
 const request = require("supertest");
 
-test("Teste de Arquivo CSV taxonômico retornado com sucesso: ", async () => {
+test("Teste de Arquivo CSV ocorrências retornado com sucesso: ", async () => {
     const response = await request(app)
     .get("/downloadCSVOcorrencias")
     expect(response.statusCode).toEqual(200);
