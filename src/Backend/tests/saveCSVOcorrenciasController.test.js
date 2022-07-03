@@ -1,7 +1,7 @@
 const app = require("../config/express");
 const request = require("supertest");
 
-test("Teste de Salvamento grande com Sucesso: ", async () => {
+test("Teste de Dados CSV salvos com sucesso (Muito Conteúdo): ", async () => {
   const response = await request(app)
     .post("/saveCSVOcorrencias")
     .send([  {
@@ -42,7 +42,7 @@ test("Teste de Salvamento grande com Sucesso: ", async () => {
 });
 
 
-test("Teste de Salvamento grande com Insucesso: ", async () => {
+test("Teste de Dados CSV salvos com sucesso (Pouco Conteúdo): ", async () => {
   const response = await request(app)
     .post("/saveCSVOcorrencias")
     .send([
