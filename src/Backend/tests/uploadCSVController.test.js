@@ -27,3 +27,11 @@ describe('Teste de Arquivo enviado com sucesso', () => {
     })
     )
 })
+
+afterAll(() => {
+    fs.rm("./uploads/teste.csv", { recursive:true }, (err) => {
+        if(err)
+            console.error(err.message);
+    })
+});
+  
