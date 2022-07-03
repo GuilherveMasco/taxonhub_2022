@@ -220,6 +220,13 @@ export default function ResultadoTaxonomico() {
         abortController.current && abortController.current.abort();
         onClose();
     }
+
+    function valorRepetido(elemento, nomes){
+        for(var i = 0; i < nomes.length; i++)
+            if(nomes[i] === elemento)
+                return true;
+        return false;
+    }
       
       return (       
           <div className="bg-BgColor w-screen h-screen">
@@ -251,7 +258,7 @@ export default function ResultadoTaxonomico() {
                                             complete: async (results) => {
                                                 results.data.shift();
                                                 results.data.forEach(element => {
-                                                    if(element[0] != nomesPesquisa.names)
+                                                    if(!valorRepetido(element[0], nomesPesquisa.names) && element[0].trim() != 0)
                                                     nomesPesquisa.names.push(element[0]);
                                                 }
                                                 )

@@ -382,6 +382,13 @@ export default function ResultadoOcorrencias() {
         onClose();
     }
 
+    function valorRepetido(elemento, nomes){
+        for(var i = 0; i < nomes.length; i++)
+            if(nomes[i] === elemento)
+                return true;
+        return false;
+    }
+
     return (         
         <div className="bg-BgColor w-screen h-screen">
             <Header/>
@@ -412,7 +419,7 @@ export default function ResultadoOcorrencias() {
                                                 complete: async (results) => {
                                                     results.data.shift();
                                                     results.data.forEach(element => {
-                                                        if(element[0] != nomesPesquisa.names)
+                                                        if(!valorRepetido(element[0], nomesPesquisa.names) && element[0].trim() != 0)
                                                         nomesPesquisa.names.push(element[0]);
                                                     }
                                                     )
